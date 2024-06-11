@@ -15,7 +15,7 @@ Amina Ahmad
 ## TODO: (Replace 🔲 with ✅ when done)
 - Amina
     
-    🔲 Main page
+    ✅ Main page
 
     🔲Login
 
