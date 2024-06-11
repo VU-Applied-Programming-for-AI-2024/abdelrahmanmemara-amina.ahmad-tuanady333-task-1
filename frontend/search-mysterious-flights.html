@@ -42,10 +42,17 @@
 
         svg {
             color:black;
-            height:150px;
-            padding-bottom: 50px;
+            height:70px;
+        }
+
+        div[class="mb-3"] {
+            color:white;
         }
         
+        button[class="btn btn-outline-secondary"] {
+            background-color: black;
+            color:white;
+        }
 
 
     </style>
@@ -83,10 +90,35 @@
         <div class="container rounded col-lg-6 mx-auto">
             <div class="row">
                 <p class="lead mb-4 text">Plan your surprise trip by selecting the start destination and your dates of travel. We will take care of the rest.</p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16" style="margin-bottom:50px">
                     <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
                 </svg>
             </div>
+        </div>
+        <div class="container mt-5">
+            <form id="flight-search-form">
+                <div class="mb-3">
+                    <label for="origin" class="form-label">Origin</label>
+                    <input type="text" class="form-control" id="origin" placeholder="Enter origin city">
+                </div>
+                <div class="mb-3">
+                    <label for="destination" class="form-label">Min. Price</label>
+                    <input type="text" class="form-control" id="destination" placeholder="ex:- 2000$">
+                </div>
+                <div class="mb-3">
+                    <label for="destination" class="form-label">Max. Price</label>
+                    <input type="text" class="form-control" id="destination" placeholder="ex:- 2000$">
+                </div>
+                <div class="mb-3">
+                    <label for="departure-date" class="form-label">Departure Date</label>
+                    <input type="date" class="form-control" id="departure-date">
+                </div>
+                <div class="mb-3">
+                    <label for="return-date" class="form-label">Return Date</label>
+                    <input type="date" class="form-control" id="return-date">
+                </div>
+                <button type="button" class="btn btn-outline-secondary">Secondary</button>
+            </form>
         </div>
 
         </div>
