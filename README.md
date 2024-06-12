@@ -17,11 +17,11 @@ Amina Ahmad
     
     ✅ Main page
 
-    🔲Login
+    ✅Login
 
-    🔲 Sign up
+    ✅ Sign up
 
-    🔲 Error handling page
+    ✅ Error handling page
 
 - Abdelrahman
     
