@@ -15,13 +15,13 @@ Amina Ahmad
 ## TODO: (Replace 🔲 with ✅ when done)
 - Amina
     
-    🔲 Main page
+    ✅ Main page
 
-    🔲Login
+    ✅Login
 
-    🔲 Sign up
+    ✅ Sign up
 
-    🔲 Error handling page
+    ✅ Error handling page
 
 - Abdelrahman
     
