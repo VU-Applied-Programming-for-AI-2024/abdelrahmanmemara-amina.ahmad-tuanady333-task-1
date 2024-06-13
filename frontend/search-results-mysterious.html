@@ -15,7 +15,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
- 
             margin: 0;
         }
         .navbar {
@@ -33,36 +32,43 @@
             border-radius: 5px;
             margin-bottom: 20px;
             padding: 20px;
-            background-color: #ffffff;
-            color: rgba(38, 38, 38, 0.695); /* Ensure text is readable on light background */
+            background-color: #b4b3b3;
+            color: white; /* Ensure text is readable on light background */
+        }
+        .flight-info {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .flight-info p {
+            flex: 1 1 50%; /* Each paragraph takes up 50% of the container's width */
         }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
-            <a class="navbar-brand" href="home.html">TravelEase</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="home.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="search-normal-flights.html">Landing Page</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about-us.html">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sign-up.html">Sign Up</a>
-                    </li>
-                </ul>
-            </div>
+        <a class="navbar-brand" href="home.html">TravelEase</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search-normal-flights.html">Landing Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about-us.html">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="sign-up.html">Sign Up</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="content">
@@ -76,21 +82,35 @@
             <div class="col-md-12">
                 <div class="flight-card">
                     <h2>Flight 1</h2>
-                    <p><strong>Departure:</strong> New York (JFK)</p>
-                    <p><strong>Departure Time:</strong> 10:00 AM</p>
-                    <p><strong>Arrival Time:</strong> 3:00 PM</p>
-                    <p><strong>Price:</strong> $500</p>
+                    <div class="flight-info">
+                        <p><strong>Departure:</strong> New York (JFK)</p>
+                        <p><strong>Departure Time:</strong> 10:00 AM</p>
+                        <p><strong>Arrival Time:</strong> 3:00 PM</p>
+                        <p><strong>Price:</strong> $500</p>
+                        <p><strong>Weather at Arrival:</strong> Partly Cloudy</p>
+                        <p><strong>Temperature at Arrival:</strong> 75°F</p>
+                        <p><strong>Wind at Arrival:</strong> 7 mph</p>
+                        <p><strong>Humidity at Arrival:</strong> 50%</p>
+                    </div>
                     <button class="btn btn-secondary">Book Now</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='flight-info-normal.html';">Details</button>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="flight-card">
                     <h2>Flight 2</h2>
-                    <p><strong>Departure:</strong> Los Angeles (LAX)</p>
-                    <p><strong>Departure Time:</strong> 12:00 PM</p>
-                    <p><strong>Arrival Time:</strong> 8:00 PM</p>
-                    <p><strong>Price:</strong> $800</p>
+                    <div class="flight-info">
+                        <p><strong>Departure:</strong> Los Angeles (LAX)</p>
+                        <p><strong>Departure Time:</strong> 12:00 PM</p>
+                        <p><strong>Arrival Time:</strong> 8:00 PM</p>
+                        <p><strong>Price:</strong> $800</p>
+                        <p><strong>Weather at Arrival:</strong> Partly Cloudy</p>
+                        <p><strong>Temperature at Arrival:</strong> 75°F</p>
+                        <p><strong>Wind at Arrival:</strong> 7 mph</p>
+                        <p><strong>Humidity at Arrival:</strong> 50%</p>
+                    </div>
                     <button class="btn btn-secondary">Book Now</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='flight-info-normal1.html';">Details</button>
                 </div>
             </div>
         </div>
