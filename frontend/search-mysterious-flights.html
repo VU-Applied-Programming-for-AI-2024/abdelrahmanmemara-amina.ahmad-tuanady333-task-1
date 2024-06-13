@@ -41,7 +41,7 @@
         }
 
         div[class="container rounded col-lg-6 mx-auto"]  {
-            color: white;
+            color: black;
             height: 30%;
             margin:50px;
         }
@@ -53,6 +53,8 @@
         svg {
             color:black;
             height:70px;
+            width: 70px;
+            margin-top:30px
         }
 
         div[class="mb-3"] {
@@ -98,22 +100,26 @@
         <h1 class="display-5 fw-bold">PLAN YOUR MYSTERIOUS TRIP</h1>
     </div>
         <div class="container rounded col-lg-6 mx-auto">
-            <div class="row">
-                <p class="lead mb-4 text">Plan your surprise trip by selecting the start destination and your dates of travel. We will take care of the rest.</p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16" style="margin-bottom:50px">
-                    <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
-                </svg>
+            <div class="row" style='background-color: white;'>
+               <div class='col-lg-12'> <p class="lead mb-4 text">Plan your surprise trip by selecting the start destination and your dates of travel. We will take care of the rest.</p></div>
             </div>
+        </div>
+        <div class="container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16" style="margin-bottom:50px">
+            <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
+        </svg>
         </div>
         <div class="container mt-5">
             <form id="flight-search-form">
-                <div class="mb-3">
-                    <label for="origin" class="form-label">Origin</label>
-                    <input type="text" class="form-control" id="origin" placeholder="Enter origin city">
-                </div>
-                <div class="mb-3">
-                    <label for="destination" class="form-label">Min. Price</label>
-                    <input type="text" class="form-control" id="destination" placeholder="ex:- 2000$">
+                <div class="row mb-3">
+                    <div class="col-lg-6 mb-3">
+                        <label for="origin" class="form-label">Origin</label>
+                        <input type="text" class="form-control" id="origin" placeholder="Enter origin city">
+                    </div>
+                    <div class=" col-lg-6 mb-3">
+                        <label for="destination" class="form-label">Min. Price</label>
+                        <input type="text" class="form-control" id="destination" placeholder="ex:- 2000$">
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="destination" class="form-label">Max. Price</label>
