@@ -25,9 +25,9 @@ Amina Ahmad
 
 - Abdelrahman
     
-    🔲 Mysterious search flights
+    ✅ Mysterious search flights
     
-    🔲 Search normal flights
+    ✅ Search normal flights
     
     🔲 General page for information about us
 
