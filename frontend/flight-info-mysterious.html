@@ -6,139 +6,119 @@
     <title>TravelEase</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        #color {
-            color:white;
-        }
-        
-          
         body {
-            background-image: url('images/main_page.gif');
+            background-image: url('images/bg.jpg');
             background-size: cover;
             background-position: center;
             color: white;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
             margin: 0;
         }
-
-        .body-text {
-            color:white;
+        .navbar {
+            margin-bottom: 20px; /* Add margin below navbar to separate it from content */
         }
-
-        .first {
-            height:80%;
+        .content {
+            margin-top: 80px; /* Add margin to push content down */
+            width: 100%;
+            max-width: 800px;
         }
-        
-        div[class="px-4 py-5 my-5 text-center"] > h1 {
-            color:white;
-            font-weight:bold;
-            font-size:6rem;
-            padding-right: 15px;
+        .flight-count {
+            margin-bottom: 20px;
         }
-
-        div[class="container rounded col-lg-6 mx-auto"]  {
-            color: black;
-            height: 30%;
-            margin:50px;
+        .flight-card {
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #b4b3b3;
+            color: white; /* Ensure text is readable on light background */
         }
-
-        .text {
-            font-size:2rem;
+        .flight-info {
+            display: flex;
+            flex-wrap: wrap;
         }
-
-        svg {
-            color:black;
-            height:70px;
-            width: 70px;
-            margin-top:30px
+        .flight-info p {
+            flex: 1 1 50%; /* Each paragraph takes up 50% of the container's width */
         }
-
-        div[class="mb-3"] {
-            color:white;
-        }
-        
-        button[class="btn btn-outline-secondary"] {
-            background-color: black;
-            color:white;
-        }
-
-
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
-            <a class="navbar-brand ms-3" href="./index.html">TravelEase</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./search-normal-flights.html">Landing Page</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./about-us.html">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./login.html">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./sign-up.html">Sign Up</a>
-                    </li>
-                </ul>
-            </div>
+        <a class="navbar-brand ms-3" href="index.html">TravelEase</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search-normal-flights.html">Landing Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about-us.html">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="sign-up.html">Sign Up</a>
+                </li>
+            </ul>
+        </div>
     </nav>
-    <div class="container first">
-    <div class="px-4 py-5 my-5 text-center">
-        <h1 class="display-5 fw-bold">PLAN YOUR MYSTERIOUS TRIP</h1>
-    </div>
-        <div class="container rounded col-lg-6 mx-auto">
-            <div class="row" style='background-color: white;'>
-               <div class='col-lg-12'> <p class="lead mb-4 text">Plan your surprise trip by selecting the start destination and your dates of travel. We will take care of the rest.</p></div>
+
+    <div class="content">
+        <div class="header">
+            <h1>Flight Search Results</h1>
+        </div>
+        <div class="flight-count">
+            <p><strong>Number of Flights Found:</strong> 2</p>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="flight-card">
+                    <h2>Flight 1</h2>
+                    <div class="flight-info">
+                        <p><strong>Departure:</strong> New York (JFK)</p>
+                        <p><strong>Departure Time:</strong> 10:00 AM</p>
+                        <p><strong>Arrival Time:</strong> 3:00 PM</p>
+                        <p><strong>Price:</strong> $500</p>
+                        <p><strong>Weather at Arrival:</strong> Partly Cloudy</p>
+                        <p><strong>Temperature at Arrival:</strong> 75°F</p>
+                        <p><strong>Wind at Arrival:</strong> 7 mph</p>
+                        <p><strong>Humidity at Arrival:</strong> 50%</p>
+                    </div>
+                    <button class="btn btn-secondary">Book Now</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='flight-info-normal.html';">Details</button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="flight-card">
+                    <h2>Flight 2</h2>
+                    <div class="flight-info">
+                        <p><strong>Departure:</strong> Los Angeles (LAX)</p>
+                        <p><strong>Departure Time:</strong> 12:00 PM</p>
+                        <p><strong>Arrival Time:</strong> 8:00 PM</p>
+                        <p><strong>Price:</strong> $800</p>
+                        <p><strong>Weather at Arrival:</strong> Partly Cloudy</p>
+                        <p><strong>Temperature at Arrival:</strong> 75°F</p>
+                        <p><strong>Wind at Arrival:</strong> 7 mph</p>
+                        <p><strong>Humidity at Arrival:</strong> 50%</p>
+                    </div>
+                    <button class="btn btn-secondary">Book Now</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='flight-info-normal1.html';">Details</button>
+                </div>
             </div>
         </div>
-        <div class="container">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16" style="margin-bottom:50px">
-            <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
-        </svg>
-        </div>
-        <div class="container mt-5">
-            <form id="flight-search-form">
-                <div class="row mb-3">
-                    <div class="col-lg-6 mb-3">
-                        <label for="origin" class="form-label">Origin</label>
-                        <input type="text" class="form-control" id="origin" placeholder="Enter origin city">
-                    </div>
-                    <div class=" col-lg-6 mb-3">
-                        <label for="destination" class="form-label">Min. Price</label>
-                        <input type="text" class="form-control" id="destination" placeholder="ex:- 2000$">
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="destination" class="form-label">Max. Price</label>
-                    <input type="text" class="form-control" id="destination" placeholder="ex:- 2000$">
-                </div>
-                <div class="mb-3">
-                    <label for="departure-date" class="form-label">Departure Date</label>
-                    <input type="date" class="form-control" id="departure-date">
-                </div>
-                <div class="mb-3">
-                    <label for="return-date" class="form-label">Return Date</label>
-                    <input type="date" class="form-control" id="return-date">
-                </div>
-                <button type="button" class="btn btn-outline-secondary">Secondary</button>
-            </form>
-        </div>
+    </div>
+    <footer class="text-center py-3">
+        <p>&copy; 2024 TravelEase. All rights reserved.</p>
+    </footer>
 
-        </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
