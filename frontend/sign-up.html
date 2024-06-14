@@ -11,77 +11,83 @@
             background-size: cover;
             background-position: center;
             color: white;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
             margin: 0;
+            padding-top: 56px; /* Adjust according to the height of your navbar */
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        nav > svg {
+            height: 20px;
+            width: 20px;
         }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
-            <a class="navbar-brand ms-3" href="index.html">TravelEase</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="search-normal-flights.html">Search your flight</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about-us.html">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sign-up.html">Sign Up</a>
-                    </li>
-                </ul>
-            </div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-airplane ms-3" viewBox="0 0 16 16">
+            <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599"/>
+        </svg>
+        <a class="navbar-brand ms-3" href="index.html">TravelEase</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search-normal-flights.html">Search your flight</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about-us.html">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="sign-up.html">Sign Up</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="card mt-5" style="width: 25rem;">
-    <div class="card-body">
-    <h1 class="text-secondary">Sign Up</h1>
-    <form>
-        <div class="row">
-            <div class="col">
-                <label class="text-secondary mt-3 mb-2" for="firstname">First Name</label>
-                <input type="text" class="form-control" id="firstname" placeholder="First Name">
-            </div>
-            <div class="col">
-                <label class="text-secondary mt-3 mb-2" for="lastname">Last Name</label>
-                <input type="text" class="form-control" id="lastname" placeholder="Last Name">
-            </div>
+        <div class="card-body">
+            <h1 class="text-secondary text-black fw-bold mb-3 mt-3">Sign Up</h1>
+            <form>
+                <div class="row">
+                    <div class="col">
+                        <label class="text-secondary mt-3 mb-2" for="firstname">First Name</label>
+                        <input type="text" class="form-control" id="firstname" placeholder="First Name">
+                    </div>
+                    <div class="col">
+                        <label class="text-secondary mt-3 mb-2" for="lastname">Last Name</label>
+                        <input type="text" class="form-control" id="lastname" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col">
+                        <label class="text-secondary mt-3 mb-2" for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email">
+                    </div>
+                    <div class="col">
+                        <label class="text-secondary mt-3 mb-2" for="signup-password">Password</label>
+                        <input type="password" class="form-control" id="signup-password" placeholder="Password">
+                    </div>
+                    <div class="col">
+                        <label class="text-secondary mt-3 mb-2" for="verify-password">Verify Password</label>
+                        <input type="password" class="form-control" id="verify-password" placeholder="Verify Password">
+                    </div>
+                    <a class="btn btn-secondary w-100 mt-3" role="button" type="submit">Submit</a>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-                <div class="col">
-                  <label class="text-secondary mt-3 mb-2" for="email">Email</label>
-                  <input type="email" class="form-control" id="email" placeholder="Email">
-                </div>
-
-                <div class="col">
-                  <label class="text-secondary mt-3 mb-2" for="signup-password">Password</label>
-                  <input type="password" class="form-control" id="signup-password" placeholder="Password">
-                </div>
-
-                <div class="col">
-                    <label class="text-secondary mt-3 mb-2" for="verify-password">Verify Password</label>
-                    <input type="password" class="form-control" id="verify-password" placeholder="Verify Password">
-                </div>
-                
-                <a class="btn btn-secondary w-100 mt-3 mbt-3" role="button" type="submit">Submit</a>
-        </div>
-    </form>
-    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
