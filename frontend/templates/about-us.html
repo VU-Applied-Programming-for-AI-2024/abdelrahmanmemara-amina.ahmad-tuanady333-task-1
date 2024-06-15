@@ -10,7 +10,7 @@
             color:white;
         }
         body {
-            background-image: url('images/static.jpg');
+            background-image: url(../images/bg.jpg);
             background-size: cover;
             background-position: center;
             color: white;
@@ -77,26 +77,26 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-airplane ms-3" viewBox="0 0 16 16">
                 <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599"/>
             </svg>
-            <a class="navbar-brand ms-3" href="./index.html">TravelEase</a>
+            <a class="navbar-brand ms-3" href="{{ url_for('index') }}">TravelEase</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="./index.html">Home</a>
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./search-normal-flights.html">Search your flight</a>
+                        <a class="nav-link" href="{{ url_for('search_normal_flights') }}">Search your flight</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./about-us.html">About Us</a>
+                        <a class="nav-link" href="{{ url_for('about_us') }}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./login.html">Login</a>
+                        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./sign-up.html">Sign Up</a>
+                        <a class="nav-link" href="{{ url_for('sign_up') }}">Sign Up</a>
                     </li>
                 </ul>
             </div>
@@ -110,17 +110,18 @@
     <div class="container" style="background-color: white; border-radius: 5%;">
         <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
             <div class="col-10 col-sm-8 col-lg-6">
-            <img src="./images/travel.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+            <img src="../images/travel.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
             </div>
             <div class="col-lg-6">
             <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3 ms-3">Travel with TravelEase</h1>
             <p class="fs-5 mt-3 text-secondary ms-3">Welcome to our unique travel platform, where you can embrace the thrill of the unknown with our mysterious flight planner or effortlessly book your dream destination. Let your wanderlust take flight as you discover new adventures with just a few clicks!</p>
             <div class="row d-grid gap-2 d-md-flex justify-content-md-start">
                 <div class="col-lg-6">
-                    <button type="button" class="btn btn-secondary btn-lg px-4 me-md-2 ms-3">Mystery</button>
+                    <a class="btn btn-secondary btn-lg px-4 me-md-2 ms-3" href="{{ url_for('search_mysterious_flights') }}">Mystery</a>
+
                 </div>
                 <div class="col-lg-1">
-                    <button type="button" class="btn btn-dark btn-lg px-4 ms-3">Normal</button>
+                    <a class="btn btn-dark btn-lg px-4 ms-3" href="{{ url_for('search_normal_flights') }}">Normal</a>
                 </div>
             </div>
             </div>

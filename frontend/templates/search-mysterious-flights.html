@@ -10,7 +10,7 @@
             color:white;
         }
         body {
-            background-image: url('images/static.jpg');
+            background-image: url(../images/bg.jpg);
             background-size: cover;
             background-position: center;
             color: white;
@@ -39,7 +39,7 @@
             color: black;
             height: 30%;
             margin:50px;
-            width: 70%; 
+            width: 70%;
         }
 
         .text {
@@ -47,23 +47,21 @@
         }
 
         nav > svg {
-            color:white;
+            color: white;
             height: 20px;
             width: 20px;
-            margin-top:0px;
         }
+
         svg {
             color:black;
             height:70px;
             width: 70px;
         }
 
-
-
         div[class="mb-3"] {
             color:white;
         }
-        button[class="btn btn-secondary"] {
+        button[class="btn btn-outline-secondary"] {
             color:white;
         }
 
@@ -72,69 +70,62 @@
             color:grey;
         }
 
-        nav {
-            color:aliceblue;
-        }
-
 
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-airplane ms-3" viewBox="0 0 16 16">
-                <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599"/>
-            </svg>
-            <a class="navbar-brand ms-3" href="./index.html">TravelEase</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./search-normal-flights.html">Search your flight</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./about-us.html">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./login.html">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./sign-up.html">Sign Up</a>
-                    </li>
-                </ul>
-            </div>
-    </nav>
+        <svg xmlns="http://www.w3.org/2000/svg" width="1" height="1" fill="currentColor" class="bi bi-airplane ms-3" viewBox="0 0 16 16">
+            <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599"/>
+        </svg>
+        <a class="navbar-brand ms-3" href="{{ url_for('index') }}">TravelEase</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('search_normal_flights') }}">Search your flight</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('about_us') }}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('sign_up') }}">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+</nav>
+
     <div class="container first">
     <div class="px-4 py-5 my-5 text-center">
-        <h1 class="display-4 mt-3 fw-bold">TravelEase</h1>
+        <p class="display-2 fw-bold">PLAN YOUR MYSTERIOUS TRIP</p>
     </div>
     <div style="background-color: white; border-radius: 15px;">
         <div class="container rounded col-lg-6 mx-auto">
             <div class="row">
-               <p class="display-5 fw-bold lead mt-5 text-center">Plan your perfect trip with TravelEase</p>
+               <div class='col-lg-12'> <p class="display-6 fw-bold lead mt-5 text-center">Plan your surprise trip by selecting the start destination and your dates of travel. We will take care of the rest.</p></div>
             </div>
         </div>
         <div class="container text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16" style="margin-bottom:20px">
             <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
         </svg>
         </div>
         <div class="container mt-5" >
             <form id="flight-search-form">
                 <div class="row mb-3">
-                    <div class="col-lg-4 m-2">
+                    <div class="col-lg-5 m-2">
                         <label for="origin" class="form-label">Origin</label>
                         <input type="text" class="form-control" id="origin" placeholder="Enter origin city">
                     </div>
-                    <div class="col-lg-4 m-2">
-                        <label for="origin" class="form-label">Final Destination</label>
-                        <input type="text" class="form-control" id="origin" placeholder="Enter origin city">
-                    </div>
-                    <div class=" col-lg-3 m-2">
+                    <div class=" col-lg-5 m-2">
                         <label for="min-price" class="form-label">Min. Price</label>
                         <input type="text" class="form-control" id="min-price" placeholder="2000$">
                     </div>
@@ -153,7 +144,8 @@
                         <input type="date" class="form-control" id="return-date">
                     </div>
                 <div class="text-center mt-3 mb-3">
-                    <a href="search-result-normal-flight.html" class="btn btn-secondary" style="text-align:center;" role="button">Submit</a>
+                    <a href="{{ url_for('search_result_mysterious_flight') }}" class="btn btn-secondary" style="text-align:center;" role="button">Submit</a>
+
                 </div>
                 </div>
             </form>
