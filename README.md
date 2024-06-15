@@ -14,7 +14,7 @@ Amina Ahmad
     - TravelEase/
     │
     ├── backend/
-    │   ├── app.py                                  
+    │   └── app.py                                  
     │
     ├── frontend/
     │   ├── templates/  
