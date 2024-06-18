@@ -11,6 +11,10 @@ app.secret_key = 'supersecretkey'  # Needed for flash messages
 USER_DATA_FILE = os.path.join(os.path.dirname(__file__), 'users.json')
 
 def load_users():
+    """
+    Load users from JSON file.
+    Returns: Dictionary with user data.
+    """
     try:
         with open(USER_DATA_FILE, 'r') as file:
             return json.load(file)
@@ -18,6 +22,9 @@ def load_users():
         return {}
 
 def save_users(users):
+    """
+    Save users in JSON file.
+    """
     with open(USER_DATA_FILE, 'w') as file:
         json.dump(users, file, indent=4)
 
@@ -25,14 +32,27 @@ users = load_users()
 
 @app.route('/images/<path:filename>')
 def serve_images(filename):
+    """
+    Serve images from the images folder.
+    """
     return send_from_directory('../frontend/images', filename)
 
 @app.route('/')
 def index():
+    """
+    Render the index.html template.
+    Returns: Rendered index template.
+    """
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Handle user login.
+
+    Returns:
+        Response: Rendered HTML template of login page or redirect to index page.
+    """
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['login-password']
@@ -46,6 +66,12 @@ def login():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def sign_up():
+    """
+    Handle user registration.
+
+    Returns:
+        Response: Rendered HTML template of sign up page or redirect to another index page.
+    """
     if request.method == 'POST':
         firstname = request.form['firstname']
         lastname = request.form['lastname']
@@ -70,26 +96,50 @@ def sign_up():
 
 @app.route('/about-us')
 def about_us():
+    """
+    Render the about-us.html template.
+    Returns: About us page.
+    """
     return render_template('about-us.html')
 
 @app.route('/error')
 def error():
+    """
+    Render the error.html template.
+    Returns: Error page.
+    """
     return render_template('error.html')
 
 @app.route('/search-mysterious-flights')
 def search_mysterious_flights():
+    """
+    Render the search-mysterious-flights.html template.
+    Returns: Search page for mysterious flights.
+    """
     return render_template('search-mysterious-flights.html')
 
 @app.route('/search-normal-flights')
 def search_normal_flights():
+    """
+    Render the search-normal-flights.html template.
+    Returns: Search page for normal (non-mysterious) flights.
+    """
     return render_template('search-normal-flights.html')
 
 @app.route('/search-result-mysterious-flight')
 def search_result_mysterious_flight():
+    """
+    Render the search-result-mysterious-flight.html template.
+    Returns: Search results for mysterious flights.
+    """
     return render_template('search-result-mysterious-flight.html')
 
 @app.route('/search-result-normal-flight')
 def search_result_normal_flight():
+    """
+    Render the search-result-normal-flight.html template.
+    Returns: Search results for normal (non-mysterious) flights.
+    """
     return render_template('search-result-normal-flight.html')
 
 if __name__ == '__main__':
