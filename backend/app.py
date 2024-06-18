@@ -1,3 +1,5 @@
+import os
+import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 
@@ -6,13 +8,24 @@ app = Flask(__name__,
             static_folder='../frontend/images')
 app.secret_key = 'supersecretkey'  # Needed for flash messages
 
-# Dummy data store
-users = {}
+USER_DATA_FILE = os.path.join(os.path.dirname(__file__), 'users.json')
 
-# Serve images from the images directory
+def load_users():
+    try:
+        with open(USER_DATA_FILE, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {}
+
+def save_users(users):
+    with open(USER_DATA_FILE, 'w') as file:
+        json.dump(users, file, indent=4)
+
+users = load_users()
+
 @app.route('/images/<path:filename>')
 def serve_images(filename):
-    return send_from_directory('images', filename)
+    return send_from_directory('../frontend/images', filename)
 
 @app.route('/')
 def index():
@@ -50,8 +63,9 @@ def sign_up():
                 'lastname': lastname,
                 'password': generate_password_hash(password)
             }
+            save_users(users)  
             flash('Registration successful!', 'success')
-            return redirect(url_for('login'))
+            return redirect(url_for('index'))
     return render_template('sign-up.html')
 
 @app.route('/about-us')
@@ -80,4 +94,3 @@ def search_result_normal_flight():
 
 if __name__ == '__main__':
     app.run(debug=True)
-

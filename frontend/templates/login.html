@@ -60,16 +60,31 @@
     <div class="card mt-5" style="width: 25rem;">
         <h1 class="mb-4 mt-5 text-black fw-bold">Login</h1>
         <div class="card-body">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert-container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+            
         <form method="POST" action="{{ url_for('login') }}">
             <div class="mb-3">
                 <label for="email" class="form-label text-secondary">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Email">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
             </div>
             <div class="mb-3">
                 <label for="login-password" class="form-label text-secondary">Password</label>
-                <input type="password" class="form-control" id="login-password" placeholder="Password">
+                <input type="password" class="form-control" id="login-password" name="login-password" placeholder="Password" required>
             </div>
-            <a class="btn btn-secondary w-100" role="button" type="submit">Submit</a>
+            <button class="btn btn-secondary w-100" type="submit">Submit</button>
+
         </form>
         </div>
     </div>
