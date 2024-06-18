@@ -110,6 +110,17 @@ def error():
     """
     return render_template('error.html')
 
+@app.errorhandler(404)
+def page_not_found(e):
+    """
+    Handles 404 Not Found errors.
+
+    Input: e (= Exception object)
+
+    Returns: Rendered HTML template for the error page.
+    """
+    return render_template('error.html'), 404
+
 @app.route('/search-mysterious-flights')
 def search_mysterious_flights():
     """
