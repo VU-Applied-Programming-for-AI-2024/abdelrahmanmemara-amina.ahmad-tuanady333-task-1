@@ -5,8 +5,11 @@ async function fetchFlights() {
         // If data is already cached, use it directly
         populateFlightList(cachedData);
         populateAirportList(cachedData);
+        firstAirport(cachedData);
+        departureTime(cachedData);
+        arrivalTime(cachedData);
     } else {
-        const url = 'https://sky-scanner3.p.rapidapi.com/flights/search-roundtrip?fromEntityId=PARI&toEntityId=ROME&departDate=2024-06-22&returnDate=2024-06-25&market=US&currency=USD&stops=direct';
+        const url = 'https://sky-scanner3.p.rapidapi.com/flights/search-roundtrip?fromEntityId=PARI&toEntityId=ROME&departDate=2024-07-22&returnDate=2024-07-25&stops=direct';
         const options = {
             method: 'GET',
             headers: {
@@ -22,7 +25,9 @@ async function fetchFlights() {
 
             populateFlightList(result);
             populateAirportList(result);
-
+            firstAirport(result);
+            departureTime(result);
+            arrivalTime(result);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -50,9 +55,29 @@ function firstAirport(data) {
     const airportList = document.getElementById('firstAirport');
     const airports = data['data']['filterStats']['airports'];
 
-    const markup = ` <strong>Departure: </strong>${airports[0]['city']}`
+    const markup = `<strong>Departure: </strong>${airports[0]['city']}`
     airportList.innerHTML = markup
 }
+
+function departureTime(data) {
+    const airportList = document.getElementById('firstDeperature');
+    const time = data['data']['itineraries'][0]['legs'][0]['departure'].slice(11,16);
+
+    const markup = `<strong>Departure Time:</strong> ${time}`;
+
+    airportList.innerHTML = markup;
+}
+
+function arrivalTime(data) {
+    const airportList = document.getElementById('firstArrival');
+    const time = data['data']['itineraries'][0]['legs'][0]['arrival'].slice(11,16);
+
+    const markup = `<strong>Arrival Time:</strong> ${time}`;
+
+    airportList.innerHTML = markup;
+}
+
+
 
 // Call the async function
 fetchFlights();
