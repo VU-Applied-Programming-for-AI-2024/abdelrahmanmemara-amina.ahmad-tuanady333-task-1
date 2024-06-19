@@ -38,8 +38,7 @@ async function fetchFlights() {
             // departureTime(result,1,'second');
             // arrivalTime(result,0,'first');
             // arrivalTime(result,1,'second');
-            console.log(result);
-            for ( var i = 0; i < 3; i++) {
+            for ( var i = 0; i < 5; i++) {
                 if (i === 0) {
                     var string = 'first';
                 }
@@ -109,7 +108,7 @@ function departureTime(data,number,string) {
 
 function arrivalTime(data,number,string) {
     const airportList = document.getElementById(string+'Arrival');
-    const time = data['data']['itineraries'][1]['legs'][0]['arrival'].slice(11,16);
+    const time = data['data']['itineraries'][number]['legs'][0]['arrival'].slice(11,16);
 
     const markup = `<strong>Arrival Time:</strong> ${time}`;
 
