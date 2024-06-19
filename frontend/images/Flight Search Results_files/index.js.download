@@ -33,16 +33,16 @@ function populateFlightList(data) {
     const flightList = document.getElementById('firstPrice');
     const price = data['data']['itineraries'][0].price.formatted;
 
-    const markup = `<strong>Price: </strong> ${price}`;
+    const markup = `${price}`;
 
-    flightList.innerHTML = markup;
+    flightList.innerText = markup;
 }
 
 function populateAirportList(data) {
     const airportList = document.getElementById('airportList');
     const airports = data['data']['filterStats']['airports'];
 
-    const markup = `${airports[0]['city']} to ${airports[1]['city']}`
+    const markup = `${airports[0].city} to ${airports[1].city}`
     airportList.innerText = markup
 }
 
@@ -50,7 +50,7 @@ function firstAirport(data) {
     const airportList = document.getElementById('firstAirport');
     const airports = data['data']['filterStats']['airports'];
 
-    const markup = ` <strong>Departure: </strong>${airports[0]['city']}`
+    const markup = `<strong>Price: ${airports[0].city}</strong>`
     airportList.innerHTML = markup
 }
 
