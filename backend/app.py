@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, sen
 
 app = Flask(__name__, 
             template_folder='../frontend/templates', 
-            static_folder='../frontend/images')
+            static_folder='../static')
 app.secret_key = 'supersecretkey'  # Needed for flash messages
 
 USER_DATA_FILE = os.path.join(os.path.dirname(__file__), 'users.json')

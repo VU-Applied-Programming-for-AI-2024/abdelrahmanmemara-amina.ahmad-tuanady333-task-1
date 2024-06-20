@@ -3,7 +3,6 @@ function parameters() {
     var params = new URLSearchParams(window.location.search);
     return {
         origin: params.get('fromEntityId'),
-        end: params.get('toEntityid'),
         min_price: params.get('minimumPrice'),
         max_price:params.get('max_price'),
         dept_date: params.get('depart'),
