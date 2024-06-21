@@ -50,16 +50,21 @@ async function transformCity(city) {
 } 
 
 function generateCard(result, number) {
-    const city_name = populateAirportList(result,airport)
+    const html = docuemnt.getElementById('main');
+    const city_name = populateAirportList(result,airport);
+    const price = flightPrice(result,number);
+    const dept_time = departureTime(result,number);
+    const arrival_time = arrivalTime(result,number);
+    const airport = firstAirport(result);
     const markup = `<div class="row">
             <div class="col-md-12">
                 <div class="flight-card">
-                    <h2 class="text-dark" id="firstairportList"></h2>
+                    <h2 class="text-dark" id="firstairportList">${city_name}</h2>
                     <div class="flight-info">
-                        <p id="firstAirport"><strong>Departure: </strong></p>
-                        <p id="firstDeperature"></p>
-                        <p id="firstArrival"></p>
-                        <p id="firstPrice"><strong>Price: </strong></p>
+                        <p id="firstAirport"><strong>Departure: </strong> ${airport} </p>
+                        <p id="firstDeperature">${dept_time}</p>
+                        <p id="firstArrival"> ${arrival_time}</p>
+                        <p id="firstPrice"><strong>Price: </strong> ${price}</p>
                         <p><strong>Weather at Arrival:</strong> Partly Cloudy</p>
                         <p><strong>Temperature at Arrival:</strong> 75°F</p>
                         <p><strong>Wind at Arrival:</strong> 7 mph</p>
@@ -67,8 +72,13 @@ function generateCard(result, number) {
                     </div>
                     <button class="btn btn-secondary">Book Now</button>
                 </div>
-        </div>`
+        </div>`;
+    
+        html.insertAdjacentHTML('beforeend',markup);
 }
+
+
+
 
 
 
@@ -116,58 +126,44 @@ async function fetchFlights() {
                     break;
             }
 
-            populateAirportList(result, string);
-            flightPrice(result, i, string);
-            firstAirport(result, string);
-            departureTime(result, i, string);
-            arrivalTime(result, i, string);
+            generateCard(result,i);
         }
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
 
-function flightPrice(data,number,string) {
-    const flightList = document.getElementById(string+'Price');
-    const price = data['data']['itineraries'][number].price.formatted;
+function flightPrice(data,number) {
+    const price = data['data']['itineraries'][number]['price']['formatted'];
 
-    const markup = `<strong>Price: </strong> ${price}`;
-
-    flightList.innerHTML = markup;
+    return price;
 }
 
-function populateAirportList(data,string) {
-    const airportList = document.getElementById(string+'airportList');
+function populateAirportList(data) {
+
     const airports = data['data']['filterStats']['airports'];
 
     const markup = `${airports[0]['city']} to ${airports[1]['city']}`
-    airportList.innerText = markup
+    return markup;
 }
 
-function firstAirport(data,string) {
-    const airportList = document.getElementById(string+'Airport');
+function firstAirport(data) {
+
     const airports = data['data']['filterStats']['airports'];
 
-    const markup = `<strong>Departure: </strong>${airports[0]['city']}`
-    airportList.innerHTML = markup
+    return airports;
 }
 
-function departureTime(data,number,string) {
-    const airportList = document.getElementById(string+'Deperature');
+function departureTime(data,number) {
     const time = data['data']['itineraries'][number]['legs'][0]['departure'].slice(11,16);
 
-    const markup = `<strong>Departure Time:</strong> ${time}`;
-
-    airportList.innerHTML = markup;
+    return time;
 }
 
-function arrivalTime(data,number,string) {
-    const airportList = document.getElementById(string+'Arrival');
+function arrivalTime(data,number) {
     const time = data['data']['itineraries'][number]['legs'][0]['arrival'].slice(11,16);
 
-    const markup = `<strong>Arrival Time:</strong> ${time}`;
-
-    airportList.innerHTML = markup;
+    return time;
 }
 
 
