@@ -40,6 +40,7 @@ function getRandomCity(Cities) {
     return Cities[number];
 }
 
+var randomCity = getRandomCity(europeanCities);
 
 // function filterPrice(result) {
 //     var flights = [];
@@ -62,6 +63,24 @@ function parameters() {
 
 
 var param = parameters();
+
+async function weatherAPI(date) {
+
+    const fixed_date = date.slice(6,11);
+    const url1 = `http://api.openweathermap.org/geo/1.0/direct?q=${randomCity}&limit=1&appid=76dcae341cd27c351c448e898edca058`;
+    const first_response = await fetch(url1);
+    const latitude_longitude = await first_response.json();
+    const lon = latitude_longitude[0]['lon'];
+    const lat = latitude_longitude[0]['lat'];
+
+
+    const url = `https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&date=2023-${fixed_date}&appid=76dcae341cd27c351c448e898edca058`
+
+    const response = await fetch(url);
+    const result = await response.json();
+
+    return result;
+}
 
 async function transformCity(city) {
     const url = `https://sky-scanner3.p.rapidapi.com/flights/auto-complete?query=${city}`;
@@ -88,6 +107,41 @@ async function transformCity(city) {
 } 
 
 
+async function generateCard(result, number) {
+    const html = document.getElementById('main');
+    const city_name = populateAirportList(result);
+    const price = flightPrice(result,number);
+    const dept_time = departureTime(result,number);
+    const arrival_time = arrivalTime(result,number);
+    const airport = firstAirport(result);
+    const weather = await weatherAPI(param['dept_date']);
+    console.log(weather);
+    const temp = weather['temperature']['min'];
+    const wind = weather['wind']['max']['speed'];
+    const humidity = weather['humidity']['afternoon'];
+    const percipitation = weather['precipitation']['total'];
+    const markup = `<div class="row">
+            <div class="col-md-12">
+                <div class="flight-card">
+                    <h2 class="text-dark" id="firstairportList">${city_name}</h2>
+                    <div class="flight-info">
+                        <p id="firstAirport"><strong>Departure: </strong> ${airport} </p>
+                        <p id="firstDeperature"><strong>Departure time: </strong>${dept_time}</p>
+                        <p id="firstArrival"> <strong>Arrival time: </strong>${arrival_time}</p>
+                        <p id="firstPrice"><strong>Price: </strong> ${price}</p>
+                        <p><strong>Precipitation:</strong> ${percipitation} </p>
+                        <p><strong>Temperature at Arrival:</strong> ${temp}°F</p>
+                        <p><strong>Wind at Arrival:</strong> ${wind} mph</p>
+                        <p><strong>Humidity at Arrival:</strong> ${humidity}%</p>
+                    </div>
+                    <button class="btn btn-secondary">Book Now</button>
+                </div>
+        </div>`;
+    
+        html.insertAdjacentHTML('beforeend',markup);
+}
+
+
 
 let cachedData = null; // Variable to store cached API response data
 
@@ -95,7 +149,7 @@ async function fetchFlights() {
     try {
         const cityId = await transformCity(param['origin']);
 
-        const cityTo = await transformCity(getRandomCity(europeanCities));
+        const cityTo = await transformCity(randomCity);
         // Construct the URL using the cityId
         console.log(cityTo);
         const url = `https://sky-scanner3.p.rapidapi.com/flights/search-roundtrip?fromEntityId=${cityId}&toEntityId=${cityTo}&departDate=${param['dept_date']}&returnDate=${param['return_date']}&stops=direct,1stop`;
@@ -110,80 +164,71 @@ async function fetchFlights() {
         // Fetch the flight data
         const response = await fetch(url, options);
         const result = await response.json();
-        cachedData = result; // Cache the API response data
-
+        var resultsLength = result['data']['itineraries'].length;
+        console.log(resultsLength);
         // Process the result
-        for (let i = 0; i < 5; i++) {
-            let string;
-            switch (i) {
-                case 0:
-                    string = 'first';
-                    break;
-                case 1:
-                    string = 'second';
-                    break;
-                case 2:
-                    string = 'third';
-                    break;
-                case 3:
-                    string = 'fourth';
-                    break;
-                case 4:
-                    string = 'fifth';
-                    break;
+        if (resultsLength > 0 & resultsLength < 11) {
+            console.log(resultsLength);
+            document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${resultsLength}</p>`);
+            for (let i = 0; i < resultsLength; i++) {
+                generateCard(result,i);
             }
-            console.log(result);
-            populateAirportList(result, string);
-            flightPrice(result, i, string);
-            firstAirport(result, string);
-            departureTime(result, i, string);
+        }
+
+        else if (resultsLength > 10) {
+            document.getElementById('count').insertAdjacentHTML('beforeend','<p><strong>Number of Flights Found:</strong> 10 </p>');
+            for (let i = 0; i < 10; i++) {
+                generateCard(result,i);
+            }
+        }
+        else if (resultsLength === 0) {
+            document.getElementById('count').insertAdjacentHTML('beforeend', '<p><strong>Number of Flights Found:</strong> 0 </p>');
+            document.getElementById('main').insertAdjacentHTML('beforeend',`<div class="row">
+            <div class="col-md-12">
+                <div class="flight-card">
+                <p> No results found </p>
+                </div>
+        </div>`);
         }
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
 
-function flightPrice(data,number,string) {
-    const flightList = document.getElementById(string+'Price');
+function flightPrice(data,number) {
+
     const price = data['data']['itineraries'][number]['price']['formatted'];
 
-    const markup = `<strong>Price: </strong> ${price}`;
-
-    flightList.innerHTML = markup;
+    return price
 }
 
-function populateAirportList(data,string) {
-    const airportList = document.getElementById(string+'airportList');
+function populateAirportList(data) {
     const airports = data['data']['filterStats']['airports'];
 
     const markup = ` ${airports[0]['city']} &rarr; <span class="gift">🎁</span>`;
-    airportList.innerHTML = markup;
+   
+    return markup;
 }
 
-function firstAirport(data,string) {
-    const airportList = document.getElementById(string+'Airport');
-    const airports = data['data']['filterStats']['airports'];
+function firstAirport(data) {
 
-    const markup = `<strong>Departure: </strong>${airports[0]['city']}`;
-    airportList.innerHTML = markup;
+    const airports = data['data']['filterStats']['airports'][0]['airports'][0]['name'];
+
+    return airports;
 }
 
-function departureTime(data,number,string) {
-    const airportList = document.getElementById(string+'Deperature');
+function departureTime(data,number) {
+
     const time = data['data']['itineraries'][number]['legs'][0]['departure'].slice(11,16);
 
-    const markup = `<strong>Departure Time:</strong> ${time}`;
-
-    airportList.innerHTML = markup;
+    return time;
 }
 
-function arrivalTime(data,number,string) {
-    const airportList = document.getElementById(string+'Arrival');
+function arrivalTime(data,number) {
+
     const time = data['data']['itineraries'][number]['legs'][0]['arrival'].slice(11,16);
 
-    const markup = `<strong>Arrival Time:</strong> ${time}`;
-
-    airportList.innerHTML = markup;
+    return time;
 }
 
 

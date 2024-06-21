@@ -13,17 +13,25 @@ function parameters() {
 
 var param = parameters();
 
-console.log(param);
 
 
-async function weatherAPI() {
-    const url = `http://api.weatherapi.com/v1/current.json?key=ea09ccb6110d4c7f959165058242106&q=paris`
+async function weatherAPI(cityTo,date) {
+
+    const fixed_date = date.slice(6,11);
+    const url1 = `http://api.openweathermap.org/geo/1.0/direct?q=${cityTo}&limit=1&appid=76dcae341cd27c351c448e898edca058`;
+    const first_response = await fetch(url1);
+    const latitude_longitude = await first_response.json();
+    const lon = latitude_longitude[0]['lon'];
+    const lat = latitude_longitude[0]['lat'];
+
+
+    const url = `https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&date=2023-${fixed_date}&appid=76dcae341cd27c351c448e898edca058`
 
     const response = await fetch(url);
-    console.log(response);
-}
+    const result = await response.json();
 
-weatherAPI();
+    return result;
+}
 
 async function transformCity(city) {
     const url = `https://sky-scanner3.p.rapidapi.com/flights/auto-complete?query=${city}`;
@@ -49,26 +57,32 @@ async function transformCity(city) {
     }
 } 
 
-function generateCard(result, number) {
+async function generateCard(result, number) {
     const html = document.getElementById('main');
     const city_name = populateAirportList(result);
     const price = flightPrice(result,number);
     const dept_time = departureTime(result,number);
     const arrival_time = arrivalTime(result,number);
     const airport = firstAirport(result);
+    const weather = await weatherAPI(param['end'],param['dept_date']);
+    console.log(weather);
+    const temp = weather['temperature']['min'];
+    const wind = weather['wind']['max']['speed'];
+    const humidity = weather['humidity']['afternoon'];
+    const percipitation = weather['precipitation']['total'];
     const markup = `<div class="row">
             <div class="col-md-12">
                 <div class="flight-card">
                     <h2 class="text-dark" id="firstairportList">${city_name}</h2>
                     <div class="flight-info">
                         <p id="firstAirport"><strong>Departure: </strong> ${airport} </p>
-                        <p id="firstDeperature">${dept_time}</p>
-                        <p id="firstArrival"> ${arrival_time}</p>
+                        <p id="firstDeperature"><strong>Departure time: </strong>${dept_time}</p>
+                        <p id="firstArrival"> <strong>Arrival time: </strong>${arrival_time}</p>
                         <p id="firstPrice"><strong>Price: </strong> ${price}</p>
-                        <p><strong>Weather at Arrival:</strong> Partly Cloudy</p>
-                        <p><strong>Temperature at Arrival:</strong> 75°F</p>
-                        <p><strong>Wind at Arrival:</strong> 7 mph</p>
-                        <p><strong>Humidity at Arrival:</strong> 50%</p>
+                        <p><strong>Precipitation:</strong> ${percipitation} </p>
+                        <p><strong>Temperature at Arrival:</strong> ${temp}°F</p>
+                        <p><strong>Wind at Arrival:</strong> ${wind} mph</p>
+                        <p><strong>Humidity at Arrival:</strong> ${humidity}%</p>
                     </div>
                     <button class="btn btn-secondary">Book Now</button>
                 </div>
@@ -103,30 +117,31 @@ async function fetchFlights() {
         // Fetch the flight data
         const response = await fetch(url, options);
         const result = await response.json();
-        cachedData = result; // Cache the API response data
-
+        var resultsLength = result['data']['itineraries'].length;
+        console.log(resultsLength);
         // Process the result
-        for (let i = 0; i < 5; i++) {
-            let string;
-            switch (i) {
-                case 0:
-                    string = 'first';
-                    break;
-                case 1:
-                    string = 'second';
-                    break;
-                case 2:
-                    string = 'third';
-                    break;
-                case 3:
-                    string = 'fourth';
-                    break;
-                case 4:
-                    string = 'fifth';
-                    break;
+        if (resultsLength > 0 & resultsLength < 11) {
+            console.log(resultsLength);
+            document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${resultsLength}</p>`);
+            for (let i = 0; i < resultsLength; i++) {
+                generateCard(result,i);
             }
+        }
 
-            generateCard(result,i);
+        else if (resultsLength > 10) {
+            document.getElementById('count').insertAdjacentHTML('beforeend','<p><strong>Number of Flights Found:</strong> 10 </p>');
+            for (let i = 0; i < 10; i++) {
+                generateCard(result,i);
+            }
+        }
+        else if (resultsLength === 0) {
+            document.getElementById('count').insertAdjacentHTML('beforeend', '<p><strong>Number of Flights Found:</strong> 0 </p>');
+            document.getElementById('main').insertAdjacentHTML('beforeend',`<div class="row">
+            <div class="col-md-12">
+                <div class="flight-card">
+                <p> No results found </p>
+                </div>
+        </div>`);
         }
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -149,7 +164,7 @@ function populateAirportList(data) {
 
 function firstAirport(data) {
 
-    const airports = data['data']['filterStats']['airports'];
+    const airports = data['data']['filterStats']['airports'][0]['airports'][0]['name'];
 
     return airports;
 }
