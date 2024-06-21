@@ -45,6 +45,14 @@ def index():
     """
     return render_template('index.html')
 
+@app.route('/index1')
+def index1():
+    """
+    Render the index1.html template.
+    Returns: Rendered index template for login.
+    """
+    return render_template('index1.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -104,6 +112,14 @@ def about_us():
     """
     return render_template('about-us.html')
 
+@app.route('/about-us1')
+def about_us1():
+    """
+    Render the about-us.html template.
+    Returns: About us page for login.
+    """
+    return render_template('about-us1.html')
+
 @app.route('/error')
 def error():
     """
@@ -131,6 +147,14 @@ def search_mysterious_flights():
     """
     return render_template('search-mysterious-flights.html')
 
+@app.route('/search-mysterious-flights1')
+def search_mysterious_flights1():
+    """
+    Render the search-mysterious-flights1.html template.
+    Returns: Search page for mysterious flights for login.
+    """
+    return render_template('search-mysterious-flights1.html')
+
 @app.route('/search-normal-flights')
 def search_normal_flights():
     """
@@ -138,6 +162,14 @@ def search_normal_flights():
     Returns: Search page for normal (non-mysterious) flights.
     """
     return render_template('search-normal-flights.html')
+
+@app.route('/search-normal-flights1')
+def search_normal_flights1():
+    """
+    Render the search-normal-flights1.html template .
+    Returns: Search page for normal (non-mysterious) flights when you logged in.
+    """
+    return render_template('search-normal-flights1.html')
 
 @app.route('/search-result-mysterious-flight')
 def search_result_mysterious_flight():
@@ -147,6 +179,14 @@ def search_result_mysterious_flight():
     """
     return render_template('search-result-mysterious-flight.html')
 
+@app.route('/search-result-mysterious-flight1')
+def search_result_mysterious_flight1():
+    """
+    Render the search-result-mysterious-flight1.html template.
+    Returns: Search results for mysterious flights for login.
+    """
+    return render_template('search-result-mysterious-flight1.html')
+
 @app.route('/search-result-normal-flight')
 def search_result_normal_flight():
     """
@@ -154,6 +194,14 @@ def search_result_normal_flight():
     Returns: Search results for normal (non-mysterious) flights.
     """
     return render_template('search-result-normal-flight.html')
+
+@app.route('/search-result-normal-flight1')
+def search_result_normal_flight1():
+    """
+    Render the search-result-normal-flight1.html template.
+    Returns: Search results for normal (non-mysterious) flights for login.
+    """
+    return render_template('search-result-normal-flight1.html')
 
 @app.route('/profile')
 def profile():

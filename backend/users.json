@@ -28,5 +28,10 @@
         "firstname": "Amina",
         "lastname": "Ahmad",
         "password": "scrypt:32768:8:1$QMhCZ521SuG2saxN$74b3c239ac2b01a6c716a57bbbd655483f61d0373a02509d50939573ada900475774ce2c3eabfe580a2c5ab277d5abeb90c7ccad2bcd2389cd18353028279fd6"
+    },
+    "tuana.durmayuksel@gmail.com": {
+        "firstname": "Tuana",
+        "lastname": "Durmay\u00fcksel",
+        "password": "scrypt:32768:8:1$qqOqHGVtHSeuy9SD$21814796f82f534815049e98ba6febf18d5a5db50aee0aaf69bd666fa159bb0eb43abf8dff1f53350733f47c96ec407447ab5b0bdde8a353f3e8da6be6301b35"
     }
 }
