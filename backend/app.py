@@ -58,9 +58,8 @@ def login():
         password = request.form['login-password']
         user = users.get(email)
         if user and check_password_hash(user['password'], password):
-            redirect(url_for('profile'))
-            flash("Sign up successful!", 'success')
-            return redirect(url_for('profile'))
+            flash('Login successful!', 'success')
+            return redirect(url_for('index'))
         else:
             flash('Invalid credentials', 'danger')
     return render_template('login.html')
@@ -91,9 +90,8 @@ def sign_up():
                 'password': generate_password_hash(password)
             }
             save_users(users)  
-            redirect(url_for('profile'))
-            flash("Sign up successful!", 'success')
-            return redirect(url_for('profile'))
+            flash('Registration successful!', 'success')
+            return redirect(url_for('index'))
     return render_template('sign-up.html')
 
 @app.route('/about-us')
@@ -154,41 +152,6 @@ def search_result_normal_flight():
     Returns: Search results for normal (non-mysterious) flights.
     """
     return render_template('search-result-normal-flight.html')
-
-@app.route('/profile')
-def profile():
-    """
-    Render the search-result-normal-flight.html template.
-    Returns: Search results for normal (non-mysterious) flights.
-    """
-    return render_template('profile.html')
-
-
-@app.route('/update_email', methods=['POST'])
-def update_email():
-    current_email = request.form['current-email']
-    new_email = request.form['new-email']
-    if current_email in users:
-        users[new_email] = users.pop(current_email)
-        save_users(users)
-        flash('Email updated successfully!', 'success')
-    else:
-        flash('Current email not found!', 'danger')
-    return redirect(url_for('profile'))
-
-@app.route('/delete_account', methods=['POST'])
-def delete_account():
-    email = request.form['delete-email']
-    password = request.form['delete-password']
-    user = users.get(email)
-    if user and check_password_hash(user['password'], password):
-        users.pop(email)
-        flash('Account deleted successfully!', 'danger')
-    else:
-        flash('Invalid email or password!', 'danger')
-        return redirect(url_for('profile'))
-    return redirect(url_for('index'))
-
 
 if __name__ == '__main__':
     app.run(debug=True)
