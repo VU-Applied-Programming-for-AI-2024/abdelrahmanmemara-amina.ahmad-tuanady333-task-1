@@ -10,11 +10,8 @@ function parameters() {
     }
 }
 
-var city = 'madrid';
-
-
 async function transformCity(city) {
-    const url = `https://sky-scanner3.p.rapidapi.com/flights/auto-complete?query=${city}`;
+    const url = `https://sky-scanner3.p.rapidapi.com/flights/auto-complete?query=${param['origin']}`;
     const options = {
 	method: 'GET',
 	headers: {
@@ -47,7 +44,7 @@ async function fetchFlights() {
         const cityId = await transformCity(city);
 
         // Construct the URL using the cityId
-        const url = `https://sky-scanner3.p.rapidapi.com/flights/search-roundtrip?fromEntityId=${cityId}&toEntityId=ROME&departDate=2024-07-22&returnDate=2024-07-25&stops=direct`;
+        const url = `https://sky-scanner3.p.rapidapi.com/flights/search-roundtrip?fromEntityId=${cityId}&toEntityId=PARI&departDate=${param['dept_date']}&returnDate=${param['return_date']}&stops=direct`;
         const options = {
             method: 'GET',
             headers: {
@@ -81,7 +78,7 @@ async function fetchFlights() {
                     string = 'fifth';
                     break;
             }
-
+            console.log(window.location.search);
             populateAirportList(result, string);
             flightPrice(result, i, string);
             firstAirport(result, string);
@@ -94,7 +91,7 @@ async function fetchFlights() {
 
 function flightPrice(data,number,string) {
     const flightList = document.getElementById(string+'Price');
-    const price = data['data']['itineraries'][number].price.formatted;
+    const price = data['data']['itineraries'][number]['price']['formatted'];
 
     const markup = `<strong>Price: </strong> ${price}`;
 
