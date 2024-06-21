@@ -10,8 +10,11 @@ function parameters() {
     }
 }
 
+
+var param = parameters();
+
 async function transformCity(city) {
-    const url = `https://sky-scanner3.p.rapidapi.com/flights/auto-complete?query=${param['origin']}`;
+    const url = `https://sky-scanner3.p.rapidapi.com/flights/auto-complete?query=${city}`;
     const options = {
 	method: 'GET',
 	headers: {
@@ -40,10 +43,9 @@ let cachedData = null; // Variable to store cached API response data
 
 async function fetchFlights() {
     try {
-        // Get the cityId asynchronously
-        const cityId = await transformCity(city);
-
+        const cityId = await transformCity(param['origin']);
         // Construct the URL using the cityId
+        console.log(cityId);
         const url = `https://sky-scanner3.p.rapidapi.com/flights/search-roundtrip?fromEntityId=${cityId}&toEntityId=PARI&departDate=${param['dept_date']}&returnDate=${param['return_date']}&stops=direct`;
         const options = {
             method: 'GET',
