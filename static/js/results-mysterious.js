@@ -1,3 +1,53 @@
+const europeanCities = [
+    "London",
+    "Paris",
+    "Berlin",
+    "Madrid",
+    "Rome",
+    "Athens",
+    "Amsterdam",
+    "Vienna",
+    "Zurich",
+    "Brussels",
+    "Lisbon",
+    "Moscow",
+    "Stockholm",
+    "Copenhagen",
+    "Oslo",
+    "Helsinki",
+    "Dublin",
+    "Budapest",
+    "Warsaw",
+    "Prague",
+    "Bucharest",
+    "Sofia",
+    "Kiev",
+    "Belgrade",
+    "Zagreb",
+    "Skopje",
+    "Ljubljana",
+    "Vilnius",
+    "Tallinn",
+    "Riga"
+];
+
+
+
+function getRandomCity(Cities) {
+
+    var number = Math.floor(Math.random() * Cities.length);
+
+    return Cities[number];
+}
+
+
+// function filterPrice(result) {
+//     var flights = [];
+
+//     while (flights.length < 6 & )
+
+
+// }
 
 function parameters() {
     var params = new URLSearchParams(window.location.search);
@@ -44,9 +94,11 @@ let cachedData = null; // Variable to store cached API response data
 async function fetchFlights() {
     try {
         const cityId = await transformCity(param['origin']);
+
+        const cityTo = await transformCity(getRandomCity(europeanCities));
         // Construct the URL using the cityId
-        console.log(cityId);
-        const url = `https://sky-scanner3.p.rapidapi.com/flights/search-roundtrip?fromEntityId=${cityId}&toEntityId=PARI&departDate=${param['dept_date']}&returnDate=${param['return_date']}&stops=direct`;
+        console.log(cityTo);
+        const url = `https://sky-scanner3.p.rapidapi.com/flights/search-roundtrip?fromEntityId=${cityId}&toEntityId=${cityTo}&departDate=${param['dept_date']}&returnDate=${param['return_date']}&stops=direct,1stop`;
         const options = {
             method: 'GET',
             headers: {
@@ -80,7 +132,7 @@ async function fetchFlights() {
                     string = 'fifth';
                     break;
             }
-            console.log(window.location.search);
+            console.log(result);
             populateAirportList(result, string);
             flightPrice(result, i, string);
             firstAirport(result, string);
