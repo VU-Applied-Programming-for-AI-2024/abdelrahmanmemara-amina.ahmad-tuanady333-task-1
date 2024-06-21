@@ -129,15 +129,6 @@ def search_mysterious_flights():
     """
     return render_template('search-mysterious-flights.html')
 
-@app.route('/trying')
-def search_mysterious_flights():
-    """
-    Render the search-mysterious-flights.html template.
-    Returns: Search page for mysterious flights.
-    """
-    return render_template('trying.html')
-
-
 
 
 @app.route('/search-normal-flights')

@@ -50,8 +50,8 @@ async function transformCity(city) {
 } 
 
 function generateCard(result, number) {
-    const html = docuemnt.getElementById('main');
-    const city_name = populateAirportList(result,airport);
+    const html = document.getElementById('main');
+    const city_name = populateAirportList(result);
     const price = flightPrice(result,number);
     const dept_time = departureTime(result,number);
     const arrival_time = arrivalTime(result,number);
