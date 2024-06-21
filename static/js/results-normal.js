@@ -42,12 +42,45 @@ async function transformCity(city) {
 
 let cachedData = null; // Variable to store cached API response data
 
+async function createPriceChart(prices) {
+    const ctx = document.getElementById('priceChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Flight 1', 'Flight 2', 'Flight 3', 'Flight 4', 'Flight 5'],
+            datasets: [{
+                label: 'Flight Prices',
+                data: prices,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
 async function fetchFlights() {
     try {
-        // Get the cityId asynchronously
         const cityId = await transformCity(city);
-
-        // Construct the URL using the cityId
         const url = `https://sky-scanner3.p.rapidapi.com/flights/search-roundtrip?fromEntityId=${cityId}&toEntityId=ROME&departDate=2024-07-22&returnDate=2024-07-25&stops=direct`;
         const options = {
             method: 'GET',
@@ -57,12 +90,12 @@ async function fetchFlights() {
             }
         };
 
-        // Fetch the flight data
         const response = await fetch(url, options);
         const result = await response.json();
-        cachedData = result; // Cache the API response data
+        cachedData = result;
 
-        // Process the result
+        const prices = [];
+
         for (let i = 0; i < 5; i++) {
             let string;
             switch (i) {
@@ -87,12 +120,17 @@ async function fetchFlights() {
             flightPrice(result, i, string);
             firstAirport(result, string);
             departureTime(result, i, string);
-            arrivalTime(result, i, string);
+            prices.push(parseFloat(result['data']['itineraries'][i].price.formatted.replace(/[^0-9.-]+/g,""))); // Extract price value as float
         }
+
+        createPriceChart(prices);
+
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
+
+
 
 function flightPrice(data,number,string) {
     const flightList = document.getElementById(string+'Price');
