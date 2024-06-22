@@ -45,6 +45,14 @@ def index():
     """
     return render_template('index.html')
 
+@app.route('/index1')
+def index1():
+    """
+    Render the index1.html template.
+    Returns: Rendered index template for login.
+    """
+    return render_template('index1.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -58,8 +66,9 @@ def login():
         password = request.form['login-password']
         user = users.get(email)
         if user and check_password_hash(user['password'], password):
-            flash('Login successful!', 'success')
-            return redirect(url_for('index'))
+            redirect(url_for('profile'))
+            flash("Sign up successful!", 'success')
+            return redirect(url_for('profile'))
         else:
             flash('Invalid credentials', 'danger')
     return render_template('login.html')
@@ -90,8 +99,9 @@ def sign_up():
                 'password': generate_password_hash(password)
             }
             save_users(users)  
-            flash('Registration successful!', 'success')
-            return redirect(url_for('index'))
+            redirect(url_for('profile'))
+            flash("Sign up successful!", 'success')
+            return redirect(url_for('profile'))
     return render_template('sign-up.html')
 
 @app.route('/about-us')
@@ -101,6 +111,14 @@ def about_us():
     Returns: About us page.
     """
     return render_template('about-us.html')
+
+@app.route('/about-us1')
+def about_us1():
+    """
+    Render the about-us.html template.
+    Returns: About us page for login.
+    """
+    return render_template('about-us1.html')
 
 @app.route('/error')
 def error():
@@ -129,7 +147,13 @@ def search_mysterious_flights():
     """
     return render_template('search-mysterious-flights.html')
 
-
+@app.route('/search-mysterious-flights1')
+def search_mysterious_flights1():
+    """
+    Render the search-mysterious-flights1.html template.
+    Returns: Search page for mysterious flights for login.
+    """
+    return render_template('search-mysterious-flights1.html')
 
 @app.route('/search-normal-flights')
 def search_normal_flights():
@@ -139,6 +163,14 @@ def search_normal_flights():
     """
     return render_template('search-normal-flights.html')
 
+@app.route('/search-normal-flights1')
+def search_normal_flights1():
+    """
+    Render the search-normal-flights1.html template .
+    Returns: Search page for normal (non-mysterious) flights when you logged in.
+    """
+    return render_template('search-normal-flights1.html')
+
 @app.route('/search-result-mysterious-flight')
 def search_result_mysterious_flight():
     """
@@ -147,6 +179,14 @@ def search_result_mysterious_flight():
     """
     return render_template('search-result-mysterious-flight.html')
 
+@app.route('/search-result-mysterious-flight1')
+def search_result_mysterious_flight1():
+    """
+    Render the search-result-mysterious-flight1.html template.
+    Returns: Search results for mysterious flights for login.
+    """
+    return render_template('search-result-mysterious-flight1.html')
+
 @app.route('/search-result-normal-flight')
 def search_result_normal_flight():
     """
@@ -154,6 +194,50 @@ def search_result_normal_flight():
     Returns: Search results for normal (non-mysterious) flights.
     """
     return render_template('search-result-normal-flight.html')
+
+@app.route('/search-result-normal-flight1')
+def search_result_normal_flight1():
+    """
+    Render the search-result-normal-flight1.html template.
+    Returns: Search results for normal (non-mysterious) flights for login.
+    """
+    return render_template('search-result-normal-flight1.html')
+
+
+@app.route('/profile')
+def profile():
+    """
+    Render the search-result-normal-flight.html template.
+    Returns: Search results for normal (non-mysterious) flights.
+    """
+    return render_template('profile.html')
+
+
+@app.route('/update_email', methods=['POST'])
+def update_email():
+    current_email = request.form['current-email']
+    new_email = request.form['new-email']
+    if current_email in users:
+        users[new_email] = users.pop(current_email)
+        save_users(users)
+        flash('Email updated successfully!', 'success')
+    else:
+        flash('Current email not found!', 'danger')
+    return redirect(url_for('profile'))
+
+@app.route('/delete_account', methods=['POST'])
+def delete_account():
+    email = request.form['delete-email']
+    password = request.form['delete-password']
+    user = users.get(email)
+    if user and check_password_hash(user['password'], password):
+        users.pop(email)
+        flash('Account deleted successfully!', 'danger')
+    else:
+        flash('Invalid email or password!', 'danger')
+        return redirect(url_for('profile'))
+    return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
