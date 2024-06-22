@@ -32,6 +32,9 @@ const europeanCities = [
 ];
 
 function getRandomCity(Cities) {
+    // Function that gets a random city.
+    // input: Cities, a list of the cities.
+    // return: random city.
     var number = Math.floor(Math.random() * Cities.length);
     return Cities[number];
 }
@@ -40,6 +43,8 @@ var randomCity = getRandomCity(europeanCities);
 
 
 function parameters() {
+    // Function to extract URL parameters
+    // return: a dictionary of the users input.
     var params = new URLSearchParams(window.location.search);
     return {
         origin: params.get('fromEntityId'),
@@ -63,6 +68,9 @@ function hideLoadingAlert() {
 }
 
 async function weatherAPI(date) {
+    // Function to fetch weather data based on city and date
+    // input: cityTp, the city you are traveling to. date, the is the date of your trave;.
+    // return: climate information about the city.
     const fixed_date = date.slice(6,11);
     const url1 = `http://api.openweathermap.org/geo/1.0/direct?q=${randomCity}&limit=1&appid=76dcae341cd27c351c448e898edca058`;
     const first_response = await fetch(url1);
@@ -79,6 +87,9 @@ async function weatherAPI(date) {
 }
 
 async function transformCity(city) {
+    // Function to transform city name into cityId
+    // inpit: city, the city you want to encode.
+    // return: the SkyID of the inputted city.
     const url = `https://sky-scanner3.p.rapidapi.com/flights/auto-complete?query=${city}`;
     const options = {
         method: 'GET',
@@ -99,6 +110,9 @@ async function transformCity(city) {
 }
 
 async function generateCard(result, cityId, cityTo, number) {
+    // Function to generate flight card markup
+    // input: result, the response of the flight api. cityId, the city you are traveling from. cityTo, the city you are traveling to. number, the number of the flight.
+    // return: a card for a specific flight.
     const html = document.getElementById('main');
     const city_name = populateAirportList(result);
     const price = flightPrice(result, number);
@@ -135,6 +149,8 @@ async function generateCard(result, cityId, cityTo, number) {
 let cachedData = null;
 
 async function fetchFlights() {
+    // Function to fetch flights based on search criteria
+    // return: does not return anything.
     try {
         document.getElementById('loadingAlert').style.display = 'block'; // Show loading alert
         
@@ -182,33 +198,50 @@ async function fetchFlights() {
 
 
 function flightPrice(data,number) {
-
+    // Function to extract flight price from data
+    // input: data, which is the API response of the found flights .number, is the number of the flight
+    // return: price of the flight
     const price = data['data']['itineraries'][number]['price']['formatted'];
     return price;
 }
 
 function populateAirportList(data) {
+    // Function to populate airport list
+    // input: data, which is the API response of the found flights
+    // return: the city you are traveling from to. 
     const airports = data['data']['filterStats']['airports'];
     const markup = ` ${airports[0]['city']} &rarr; <span class="gift">🎁</span>`;
     return markup;
 }
 
 function firstAirport(data) {
+    // Function to get first airport name
+    // input: data, which is the API response of the found flights
+    // return: the airport you are traveling from.
     const airports = data['data']['filterStats']['airports'][0]['airports'][0]['name'];
     return airports;
 }
 
 function departureTime(data, number) {
+    // Function to get departure time
+    // input: data, which is the API response of the found flights .number, is the number of the flight
+    // return: departure time   
     const time = data['data']['itineraries'][number]['legs'][0]['departure'].slice(11,16);
     return time;
 }
 
 function arrivalTime(data, number) {
+    // Function to get arrival time
+    // input: data, which is the API response of the found flights .number, is the number of the flight
+    // return: arrival time     
     const time = data['data']['itineraries'][number]['legs'][0]['arrival'].slice(11,16);
     return time;
 }
 
 function skyscannerLink(cityId, cityTo, dept_date, arrival_date) {
+    // Function to generate Skyscanner booking link
+    // input: cityId, city traveling from. cityTo, city traveling to. dept_date, the departure date. arrival_date, the return date.
+    // return: a skyscanner search results to book those flights.
     const dept = dept_date.slice(2,4) + dept_date.slice(5,7) + dept_date.slice(8,10);
     const arrival = arrival_date.slice(2,4) + arrival_date.slice(5,7) + arrival_date.slice(8,10);
     const url = `https://www.skyscanner.nl/transport/vluchten/${cityId}/${cityTo}/${dept}/${arrival}/?adultsv2=1&cabinclass=economy&childrenv2=&ref=home&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false`
