@@ -67,7 +67,7 @@ def login():
         user = users.get(email)
         if user and check_password_hash(user['password'], password):
             redirect(url_for('profile'))
-            flash("Sign up successful!", 'success')
+            flash("Login successful!", 'success')
             return redirect(url_for('profile'))
         else:
             flash('Invalid credentials', 'danger')

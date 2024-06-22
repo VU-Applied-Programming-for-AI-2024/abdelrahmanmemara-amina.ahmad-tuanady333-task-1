@@ -53,71 +53,41 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-airplane ms-3" viewBox="0 0 16 16">
             <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599"/>
         </svg>
-        <a class="navbar-brand ms-3" href="{{ url_for('index1') }}">TravelEase</a>
+        <a class="navbar-brand ms-3" href="{{ url_for('index') }}">TravelEase</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('index1') }}">Home</a>
+                    <a class="nav-link" href="{{ url_for('index') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('search_normal_flights1') }}">Search your flight</a>
+                    <a class="nav-link" href="{{ url_for('search_normal_flights') }}">Search your flight</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('about_us1') }}">About Us</a>
+                    <a class="nav-link" href="{{ url_for('about_us') }}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div class="content">
+    <div class="content" id="main">
         <div class="header">
             <h1>Flight Search Results</h1>
         </div>
-        <div class="flight-count">
-            <p><strong>Number of Flights Found:</strong> 2</p>
+        <div id="count">
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="flight-card">
-                    <h2 class="text-dark">New York (JFK) &rarr; <span class="gift">🎁</span></h2>
-                    <div class="flight-info">
-                        <p><strong>Departure:</strong> New York (JFK)</p>
-                        <p><strong>Departure Time:</strong> 10:00 AM</p>
-                        <p><strong>Arrival Time:</strong> 3:00 PM</p>
-                        <p><strong>Price:</strong> $500</p>
-                        <p><strong>Weather at Arrival:</strong> Partly Cloudy</p>
-                        <p><strong>Temperature at Arrival:</strong> 75°F</p>
-                        <p><strong>Wind at Arrival:</strong> 7 mph</p>
-                        <p><strong>Humidity at Arrival:</strong> 50%</p>
-                    </div>
-                    <button class="btn btn-secondary">Book Now</button>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="flight-card">
-                    <h2 class="text-dark">Los Angeles (LAX) &rarr; <span class="gift">🎁</span></h2>
-                    <div class="flight-info">
-                        <p><strong>Departure:</strong> Los Angeles (LAX)</p>
-                        <p><strong>Departure Time:</strong> 12:00 PM</p>
-                        <p><strong>Arrival Time:</strong> 8:00 PM</p>
-                        <p><strong>Price:</strong> $800</p>
-                        <p><strong>Weather at Arrival:</strong> Partly Cloudy</p>
-                        <p><strong>Temperature at Arrival:</strong> 75°F</p>
-                        <p><strong>Wind at Arrival:</strong> 7 mph</p>
-                        <p><strong>Humidity at Arrival:</strong> 50%</p>
-                    </div>
-                    <button class="btn btn-secondary">Book Now</button>
-                </div>
-            </div>
-        </div>
+       
     </div>
+
     <footer class="text-center py-3">
         <p>&copy; 2024 TravelEase. All rights reserved.</p>
     </footer>
-
+    <script src="{{ url_for('static', filename='js/results-mysterious.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
