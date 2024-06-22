@@ -38,18 +38,29 @@ function getRandomCity(Cities) {
 
 var randomCity = getRandomCity(europeanCities);
 
+
 function parameters() {
     var params = new URLSearchParams(window.location.search);
     return {
         origin: params.get('fromEntityId'),
         min_price: params.get('minimumPrice'),
-        max_price: params.get('max_price'),
+        max_price:params.get('max_price'),
         dept_date: params.get('depart'),
         return_date: params.get('return_date')
     }
 }
 
 var param = parameters();
+
+// Function to show loading alert
+function showLoadingAlert() {
+    $('#loadingAlert').fadeIn();
+}
+
+// Function to hide loading alert
+function hideLoadingAlert() {
+    $('#loadingAlert').fadeOut();
+}
 
 async function weatherAPI(date) {
     const fixed_date = date.slice(6,11);
@@ -125,8 +136,6 @@ let cachedData = null;
 
 async function fetchFlights() {
     try {
-        document.getElementById('loadingAlert').style.display = 'block'; // Show loading alert
-        
         const cityId = await transformCity(param['origin']);
         const cityTo = await transformCity(randomCity);
 
@@ -142,34 +151,45 @@ async function fetchFlights() {
         const response = await fetch(url, options);
         const result = await response.json();
         var resultsLength = result['data']['itineraries'].length;
+        let flightCount = 0;
 
-        if (resultsLength > 0 && resultsLength < 11) {
-            document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${resultsLength}</p>`);
-            for (let i = 0; i < resultsLength; i++) {
+        console.log(resultsLength);
+        // Process the result
+        for (let i = 0; i < resultsLength; i++) {
+            const priceStr = flightPrice(result, i);
+            const price = parsePrice(priceStr);
+
+            // Check if the price is within the specified range
+            if ((param['min_price'] === null || param['min_price'] === "" || price >= parsePrice(param['min_price'])) &&
+                (param['max_price'] === null || param['max_price'] === "" || price <= parsePrice(param['max_price']))) {
                 generateCard(result, cityId, cityTo, i);
+                flightCount++;
             }
-        } else if (resultsLength > 10) {
-            document.getElementById('count').insertAdjacentHTML('beforeend', '<p><strong>Number of Flights Found:</strong> 10 </p>');
+        }
+
+        else if (resultsLength > 10) {
+            document.getElementById('count').insertAdjacentHTML('beforeend','<p><strong>Number of Flights Found:</strong> 10 </p>');
             for (let i = 0; i < 10; i++) {
-                generateCard(result, cityId, cityTo, i);
+                generateCard(result,cityId,cityTo,i);
             }
-        } else if (resultsLength === 0) {
+        }
+        else if (resultsLength === 0) {
             document.getElementById('count').insertAdjacentHTML('beforeend', '<p><strong>Number of Flights Found:</strong> 0 </p>');
-            document.getElementById('main').insertAdjacentHTML('beforeend', `<div class="row">
+            document.getElementById('main').insertAdjacentHTML('beforeend',`<div class="row">
             <div class="col-md-12">
                 <div class="flight-card">
                 <p> No results found </p>
                 </div>
-            </div>`);
+        </div>`);
         }
-
-        document.getElementById('loadingAlert').style.display = 'none'; // Hide loading alert after results are loaded
     } catch (error) {
         console.error('Error fetching data:', error);
+        hideLoadingAlert(); // Hide loading alert on error
     }
 }
 
-function flightPrice(data, number) {
+function flightPrice(data,number) {
+
     const price = data['data']['itineraries'][number]['price']['formatted'];
     return price;
 }
