@@ -97,7 +97,6 @@ async function transformCity(city) {
         console.error(error)
     }
 }
-
 async function generateCard(result, cityId, cityTo, number) {
     const html = document.getElementById('main');
     const city_name = populateAirportList(result);
@@ -110,27 +109,36 @@ async function generateCard(result, cityId, cityTo, number) {
     const wind = weather['wind']['max']['speed'];
     const humidity = weather['humidity']['afternoon'];
     const percipitation = weather['precipitation']['total'];
-    const url = skyscannerLink(cityId, cityTo, param['dept_date'], param['return_date']);
+
+    // Book Now button markup with onclick event
     const markup = `<div class="row">
-            <div class="col-md-12">
-                <div class="flight-card">
-                    <h2 class="text-dark" id="firstairportList">${city_name}</h2>
-                    <div class="flight-info">
-                        <p id="firstAirport"><strong>Departure: </strong> ${airport} </p>
-                        <p id="firstDeperature"><strong>Departure time: </strong>${dept_time}</p>
-                        <p id="firstArrival"> <strong>Arrival time: </strong>${arrival_time}</p>
-                        <p id="firstPrice"><strong>Price: </strong> ${price}</p>
-                        <p><strong>Precipitation:</strong> ${percipitation} </p>
-                        <p><strong>Temperature at Arrival:</strong> ${temp}°F</p>
-                        <p><strong>Wind at Arrival:</strong> ${wind} mph</p>
-                        <p><strong>Humidity at Arrival:</strong> ${humidity}%</p>
-                    </div>
-                    <a href="${url}" class="btn btn-secondary">Book Now</a>
+        <div class="col-md-12">
+            <div class="flight-card">
+                <h2 class="text-dark" id="firstairportList">${city_name}</h2>
+                <div class="flight-info">
+                    <p id="firstAirport"><strong>Departure: </strong> ${airport} </p>
+                    <p id="firstDeperature"><strong>Departure time: </strong>${dept_time}</p>
+                    <p id="firstArrival"> <strong>Arrival time: </strong>${arrival_time}</p>
+                    <p id="firstPrice"><strong>Price: </strong> ${price}</p>
+                    <p><strong>Precipitation:</strong> ${percipitation} </p>
+                    <p><strong>Temperature at Arrival:</strong> ${temp}°F</p>
+                    <p><strong>Wind at Arrival:</strong> ${wind} mph</p>
+                    <p><strong>Humidity at Arrival:</strong> ${humidity}%</p>
                 </div>
-        </div>`;
-    
+                <a href="#" onclick="promptLogin();" class="btn btn-secondary">Book Now</a>
+            </div>
+        </div>
+    </div>`;
+
     html.insertAdjacentHTML('beforeend', markup);
 }
+
+// Function to prompt user to login
+function promptLogin() {
+    window.alert('Please log in to book the flight.');
+    // You can extend this function to redirect to the login page or show a modal for logging in
+}
+
 
 let cachedData = null;
 
@@ -208,11 +216,5 @@ function arrivalTime(data, number) {
     return time;
 }
 
-function skyscannerLink(cityId, cityTo, dept_date, arrival_date) {
-    const dept = dept_date.slice(2,4) + dept_date.slice(5,7) + dept_date.slice(8,10);
-    const arrival = arrival_date.slice(2,4) + arrival_date.slice(5,7) + arrival_date.slice(8,10);
-    const url = `https://www.skyscanner.nl/transport/vluchten/${cityId}/${cityTo}/${dept}/${arrival}/?adultsv2=1&cabinclass=economy&childrenv2=&ref=home&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false`
-    return url;
-}
 
 fetchFlights();
