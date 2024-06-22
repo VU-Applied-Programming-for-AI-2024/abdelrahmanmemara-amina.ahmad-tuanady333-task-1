@@ -53,13 +53,6 @@ def index1():
     """
     return render_template('index1.html')
 
-@app.route('/waiting')
-def waiting():
-    """
-    Render the waiting.html template.
-    Returns: Rendered waiting template.
-    """
-    return render_template('waiting.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
