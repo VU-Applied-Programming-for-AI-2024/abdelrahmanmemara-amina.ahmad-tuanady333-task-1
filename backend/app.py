@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, sen
 
 app = Flask(__name__, 
             template_folder='../frontend/templates', 
-            static_folder='../frontend/images')
+            static_folder='../static')
 app.secret_key = 'supersecretkey'  # Needed for flash messages
 
 USER_DATA_FILE = os.path.join(os.path.dirname(__file__), 'users.json')
@@ -66,9 +66,8 @@ def login():
         password = request.form['login-password']
         user = users.get(email)
         if user and check_password_hash(user['password'], password):
-            redirect(url_for('profile'))
-            flash("Sign up successful!", 'success')
-            return redirect(url_for('profile'))
+            flash('Login successful!', 'success')
+            return redirect(url_for('index'))
         else:
             flash('Invalid credentials', 'danger')
     return render_template('login.html')
@@ -99,9 +98,8 @@ def sign_up():
                 'password': generate_password_hash(password)
             }
             save_users(users)  
-            redirect(url_for('profile'))
-            flash("Sign up successful!", 'success')
-            return redirect(url_for('profile'))
+            flash('Registration successful!', 'success')
+            return redirect(url_for('index'))
     return render_template('sign-up.html')
 
 @app.route('/about-us')
@@ -147,14 +145,6 @@ def search_mysterious_flights():
     """
     return render_template('search-mysterious-flights.html')
 
-@app.route('/search-mysterious-flights1')
-def search_mysterious_flights1():
-    """
-    Render the search-mysterious-flights1.html template.
-    Returns: Search page for mysterious flights for login.
-    """
-    return render_template('search-mysterious-flights1.html')
-
 @app.route('/search-normal-flights')
 def search_normal_flights():
     """
@@ -194,14 +184,6 @@ def search_result_normal_flight():
     Returns: Search results for normal (non-mysterious) flights.
     """
     return render_template('search-result-normal-flight.html')
-
-@app.route('/search-result-normal-flight1')
-def search_result_normal_flight1():
-    """
-    Render the search-result-normal-flight1.html template.
-    Returns: Search results for normal (non-mysterious) flights for login.
-    """
-    return render_template('search-result-normal-flight1.html')
 
 @app.route('/profile')
 def profile():

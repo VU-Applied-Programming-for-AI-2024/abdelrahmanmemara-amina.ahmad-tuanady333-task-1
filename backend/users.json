@@ -1,4 +1,9 @@
 {
+    "aminaahmad233@hotmail.com": {
+        "firstname": "Amina",
+        "lastname": "Ahmad",
+        "password": "scrypt:32768:8:1$jBVK5HTRsCLYAIK1$c60037ebbc524e61476c73a60f29313af022ba8649c82ec0e4c046e523f48648f10e8613dd8f0b1519ea44bba2fe9817b7778b52e3978c29c79dba71dc37a05a"
+    },
     "a.ahmad2@student.vu.nl": {
         "firstname": "Amina",
         "lastname": "Ahmad",
@@ -8,6 +13,11 @@
         "firstname": "Abdelrahman",
         "lastname": "emara",
         "password": "scrypt:32768:8:1$8OZLmdhfvSS76KFm$fa34615133256b709eef76289c650ef942a7238bf5a8035e92695539c247f9746be561f327673cf502d13e4f02482f1709a4695913310cd3b977536d3fdd69aa"
+    },
+    "aminaahmad2004@outlook.com": {
+        "firstname": "A",
+        "lastname": "Ahmad",
+        "password": "scrypt:32768:8:1$JNCHjSdGiVBGWng8$1fdd95e3f4a1394e14d2089935b0e47d2ff2ad8a00c97719eb9cf4eb51ee490cffe83a7c3ed33f1c858566b490f758e01ef4ec8612b8761c8ac9898c80f993d4"
     },
     "sqhjwdnqe@hotmail.com": {
         "firstname": "Amina",
@@ -28,10 +38,5 @@
         "firstname": "Amina",
         "lastname": "Ahmad",
         "password": "scrypt:32768:8:1$QMhCZ521SuG2saxN$74b3c239ac2b01a6c716a57bbbd655483f61d0373a02509d50939573ada900475774ce2c3eabfe580a2c5ab277d5abeb90c7ccad2bcd2389cd18353028279fd6"
-    },
-    "tuana.durmayuksel@gmail.com": {
-        "firstname": "Tuana",
-        "lastname": "Durmay\u00fcksel",
-        "password": "scrypt:32768:8:1$qqOqHGVtHSeuy9SD$21814796f82f534815049e98ba6febf18d5a5db50aee0aaf69bd666fa159bb0eb43abf8dff1f53350733f47c96ec407447ab5b0bdde8a353f3e8da6be6301b35"
     }
 }
