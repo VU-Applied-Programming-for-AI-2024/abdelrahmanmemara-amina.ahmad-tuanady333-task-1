@@ -22,6 +22,17 @@ Open a terminal window, navigate to the back-end server directory using cd and r
 Accessing the servers:
 
 Once the servers are running, you should be able to access them using the provided port numbers.
+
+## Usage Limits and API Keys
+### Skyscanner API
+The Skyscanner API used in this project has specific usage limits, typically in terms of requests per month. If you encounter errors related to API limits, it means you've exceeded the allowed number of requests for the current period.
+
+### Weather API (OpenWeatherMap)
+This project includes the OpenWeather API which also has usage limits based on the number of requests.
+
+### What to Do If You Reach the Limit:
+If you reach the Skyscanner or OpenWeather API limit, please contact us to discuss obtaining a higher limit or alternative arrangements.
+
 ## Architecture
     - TravelEase/
     │
