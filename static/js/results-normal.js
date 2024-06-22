@@ -143,10 +143,7 @@ async function fetchFlights() {
         const response = await fetch(url, options);
         const result = await response.json();
         var resultsLength = result['data']['itineraries'].length;
-        let flightCount = 0;
-
-        console.log(resultsLength);
-
+        
         // Process the result
         for (let i = 0; i < resultsLength; i++) {
             const priceStr = flightPrice(result, i);
@@ -156,10 +153,28 @@ async function fetchFlights() {
             if ((param['min_price'] === null || param['min_price'] === "" || price >= parsePrice(param['min_price'])) &&
                 (param['max_price'] === null || param['max_price'] === "" || price <= parsePrice(param['max_price']))) {
                 generateCard(result, cityId, cityTo, i);
-                flightCount++;
             }
         }
 
+        if (resultsLength > 0 && resultsLength < 11) {
+            document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${resultsLength}</p>`);
+            for (let i = 0; i < resultsLength; i++) {
+                generateCard(result, cityId, cityTo, i);
+            }
+        } else if (resultsLength > 10) {
+            document.getElementById('count').insertAdjacentHTML('beforeend', '<p><strong>Number of Flights Found:</strong> 10 </p>');
+            for (let i = 0; i < 10; i++) {
+                generateCard(result, cityId, cityTo, i);
+            }
+        } else if (resultsLength === 0) {
+            document.getElementById('count').insertAdjacentHTML('beforeend', '<p><strong>Number of Flights Found:</strong> 0 </p>');
+            document.getElementById('main').insertAdjacentHTML('beforeend', `<div class="row">
+            <div class="col-md-12">
+                <div class="flight-card">
+                <p> No results found </p>
+                </div>
+            </div>`);
+        }
         // Display number of flights found
         document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${flightCount}</p>`);
 
