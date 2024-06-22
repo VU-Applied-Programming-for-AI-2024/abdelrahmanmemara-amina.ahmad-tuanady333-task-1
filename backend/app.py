@@ -66,9 +66,8 @@ def login():
         password = request.form['login-password']
         user = users.get(email)
         if user and check_password_hash(user['password'], password):
-            redirect(url_for('profile'))
             flash("Login successful!", 'success')
-            return redirect(url_for('profile'))
+            return redirect(url_for('profile', email=email))
         else:
             flash('Invalid credentials', 'danger')
     return render_template('login.html')
@@ -99,9 +98,8 @@ def sign_up():
                 'password': generate_password_hash(password)
             }
             save_users(users)  
-            redirect(url_for('profile'))
             flash("Sign up successful!", 'success')
-            return redirect(url_for('profile'))
+            return redirect(url_for('profile', email=email))
     return render_template('sign-up.html')
 
 @app.route('/about-us')
@@ -207,10 +205,17 @@ def search_result_normal_flight1():
 @app.route('/profile')
 def profile():
     """
-    Render the search-result-normal-flight.html template.
-    Returns: Search results for normal (non-mysterious) flights.
+    Render the profile.html template with the user's information.
+    Returns: Rendered profile page.
     """
-    return render_template('profile.html')
+    email = request.args.get('email')
+    user = users.get(email)
+    if user:
+        return render_template('profile.html', user=user)
+    else:
+        flash('User not found!', 'danger')
+        return redirect(url_for('index'))
+
 
 
 @app.route('/update_email', methods=['POST'])
