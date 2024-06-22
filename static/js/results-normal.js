@@ -4,8 +4,8 @@ function parameters() {
     return {
         origin: params.get('fromEntityId'),
         end: params.get('toEntityid'),
-        min_price: params.get('minimumPrice'),
-        max_price:params.get('max_price'),
+        min_price: params.get('min_price'),
+        max_price: params.get('max_price'),
         dept_date: params.get('depart'),
         return_date: params.get('return_date')
     }
@@ -103,7 +103,8 @@ async function fetchFlights() {
     try {
         // Get the cityId asynchronously
         const cityId = await transformCity(param['origin']);
-        const cityTo = await transformCity(param['end'])
+        
+        const cityTo = await transformCity(param['end']);
 
         // Construct the URL using the cityId
         const url = `https://sky-scanner3.p.rapidapi.com/flights/search-roundtrip?fromEntityId=${cityId}&toEntityId=${cityTo}&departDate=${param['dept_date']}&returnDate=${param['return_date']}&stops=direct`;
@@ -119,41 +120,50 @@ async function fetchFlights() {
         const response = await fetch(url, options);
         const result = await response.json();
         var resultsLength = result['data']['itineraries'].length;
+        let flightCount = 0;
+
         console.log(resultsLength);
+
         // Process the result
-        if (resultsLength > 0 & resultsLength < 11) {
-            console.log(resultsLength);
-            document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${resultsLength}</p>`);
-            for (let i = 0; i < resultsLength; i++) {
-                generateCard(result,cityId,cityTo,i);
+        for (let i = 0; i < resultsLength; i++) {
+            const priceStr = flightPrice(result, i);
+            const price = parsePrice(priceStr);
+
+            // Check if the price is within the specified range
+            if (price >= parsePrice(param['min_price']) && price <= parsePrice(param['max_price'])) {
+                generateCard(result, cityId, cityTo, i);
+                flightCount++;
             }
         }
 
-        else if (resultsLength > 10) {
-            document.getElementById('count').insertAdjacentHTML('beforeend','<p><strong>Number of Flights Found:</strong> 10 </p>');
-            for (let i = 0; i < 10; i++) {
-                generateCard(result,cityId,cityTo,i);
-            }
-        }
-        else if (resultsLength === 0) {
-            document.getElementById('count').insertAdjacentHTML('beforeend', '<p><strong>Number of Flights Found:</strong> 0 </p>');
-            document.getElementById('main').insertAdjacentHTML('beforeend',`<div class="row">
-            <div class="col-md-12">
-                <div class="flight-card">
-                <p> No results found </p>
+        document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${flightCount}</p>`);
+
+        if (flightCount === 0) {
+            document.getElementById('main').insertAdjacentHTML('beforeend', `<div class="row">
+                <div class="col-md-12">
+                    <div class="flight-card">
+                        <p> No results found </p>
+                    </div>
                 </div>
-        </div>`);
+            </div>`);
         }
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
 
-function flightPrice(data,number) {
-    const price = data['data']['itineraries'][number]['price']['formatted'];
 
+
+function parsePrice(priceStr) {
+    return Number(priceStr.replace(/[^0-9.-]+/g, ""));
+}
+
+
+function flightPrice(data, number) {
+    const price = data['data']['itineraries'][number]['price']['formatted'];
     return price;
 }
+
 
 function populateAirportList(data) {
 
