@@ -42,27 +42,29 @@ function getRandomCity(Cities) {
 
 var randomCity = getRandomCity(europeanCities);
 
-// function filterPrice(result) {
-//     var flights = [];
-
-//     while (flights.length < 6 & )
-
-
-// }
 
 function parameters() {
     var params = new URLSearchParams(window.location.search);
     return {
         origin: params.get('fromEntityId'),
-        min_price: params.get('minimumPrice'),
-        max_price:params.get('max_price'),
+        min_price: params.get('min_price'),
+        max_price: params.get('max_price'),
         dept_date: params.get('depart'),
         return_date: params.get('return_date')
     }
 }
 
-
 var param = parameters();
+
+// Function to show loading alert
+function showLoadingAlert() {
+    $('#loadingAlert').fadeIn();
+}
+
+// Function to hide loading alert
+function hideLoadingAlert() {
+    $('#loadingAlert').fadeOut();
+}
 
 async function weatherAPI(date) {
 
@@ -147,6 +149,9 @@ let cachedData = null; // Variable to store cached API response data
 
 async function fetchFlights() {
     try {
+
+        showLoadingAlert(); // Show loading alert
+
         const cityId = await transformCity(param['origin']);
 
         const cityTo = await transformCity(randomCity);
@@ -165,41 +170,52 @@ async function fetchFlights() {
         const response = await fetch(url, options);
         const result = await response.json();
         var resultsLength = result['data']['itineraries'].length;
+        let flightCount = 0;
+
         console.log(resultsLength);
         // Process the result
-        if (resultsLength > 0 & resultsLength < 11) {
-            console.log(resultsLength);
-            document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${resultsLength}</p>`);
-            for (let i = 0; i < resultsLength; i++) {
-                generateCard(result,cityId,cityTo,i);
+        for (let i = 0; i < resultsLength; i++) {
+            const priceStr = flightPrice(result, i);
+            const price = parsePrice(priceStr);
+
+            // Check if the price is within the specified range
+            if ((param['min_price'] === null || param['min_price'] === "" || price >= parsePrice(param['min_price'])) &&
+                (param['max_price'] === null || param['max_price'] === "" || price <= parsePrice(param['max_price']))) {
+                generateCard(result, cityId, cityTo, i);
+                flightCount++;
             }
         }
 
-        else if (resultsLength > 10) {
-            document.getElementById('count').insertAdjacentHTML('beforeend','<p><strong>Number of Flights Found:</strong> 10 </p>');
-            for (let i = 0; i < 10; i++) {
-                generateCard(result,cityId,cityTo,i);
-            }
-        }
-        else if (resultsLength === 0) {
-            document.getElementById('count').insertAdjacentHTML('beforeend', '<p><strong>Number of Flights Found:</strong> 0 </p>');
-            document.getElementById('main').insertAdjacentHTML('beforeend',`<div class="row">
-            <div class="col-md-12">
-                <div class="flight-card">
-                <p> No results found </p>
+        // Display number of flights found
+        document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${flightCount}</p>`);
+
+        // Display message if no results found
+        if (flightCount === 0) {
+            document.getElementById('main').insertAdjacentHTML('beforeend', `<div class="row">
+                <div class="col-md-12">
+                    <div class="flight-card">
+                        <p> No results found </p>
+                    </div>
                 </div>
-        </div>`);
+            </div>`);
         }
+
+        hideLoadingAlert(); // Hide loading alert
     } catch (error) {
         console.error('Error fetching data:', error);
+        hideLoadingAlert(); // Hide loading alert on error
     }
 }
 
-function flightPrice(data,number) {
+// Function to parse price string into number
+function parsePrice(priceStr) {
+    return Number(priceStr.replace(/[^0-9.-]+/g, ""));
+}
 
+// Function to extract flight price from data
+function flightPrice(data, number) {
     const price = data['data']['itineraries'][number]['price']['formatted'];
-
-    return price
+    return price;
 }
 
 function populateAirportList(data) {
