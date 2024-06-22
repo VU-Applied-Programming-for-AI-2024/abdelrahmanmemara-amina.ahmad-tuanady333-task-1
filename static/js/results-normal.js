@@ -132,7 +132,8 @@ async function fetchFlights() {
             const price = parsePrice(priceStr);
 
             // Check if the price is within the specified range
-            if (price >= parsePrice(param['min_price']) && price <= parsePrice(param['max_price'])) {
+            if ((param['min_price'] === null || param['min_price'] === "" || price >= parsePrice(param['min_price'])) &&
+                (param['max_price'] === null || param['max_price'] === "" || price <= parsePrice(param['max_price']))) {
                 generateCard(result, cityId, cityTo, i);
                 flightCount++;
             }
