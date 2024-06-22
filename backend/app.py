@@ -30,6 +30,22 @@ def save_users(users):
 
 users = load_users()
 
+def is_valid_password(password):
+    """
+    Validate password based on criteria:
+    - At least 8 characters long
+    - Contains at least 1 capital letter
+    - Contains at least 1 number or special symbol
+    Returns: True if valid, False otherwise.
+    """
+    if len(password) < 8:
+        return False
+    if not any(char.isupper() for char in password):
+        return False
+    if not any(char.isdigit() or not char.isalnum() for char in password):
+        return False
+    return True
+
 @app.route('/images/<path:filename>')
 def serve_images(filename):
     """
@@ -92,6 +108,8 @@ def sign_up():
             flash('Passwords do not match!', 'danger')
         elif email in users:
             flash('Email already registered!', 'danger')
+        elif not is_valid_password(password):
+            flash('Password must be at least 8 characters long and contain at least 1 capital letter and 1 number or special symbol.', 'danger')
         else:
             users[email] = {
                 'firstname': firstname,
