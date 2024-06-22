@@ -101,13 +101,21 @@ async function generateCard(result, cityId, cityTo, number) {
                         <p><strong>Wind at Arrival:</strong> ${wind} mph</p>
                         <p><strong>Humidity at Arrival:</strong> ${humidity}%</p>
                     </div>
-                    <a href="${url}" class="btn btn-secondary">Book Now</a>
+                <a href="#" onclick="promptLogin();" class="btn btn-secondary">Book Now</a>
                 </div>
             </div>
         </div>`;
     
     html.insertAdjacentHTML('beforeend', markup);
 }
+
+
+// Function to prompt user to login
+function promptLogin() {
+    window.alert('Please log in to book the flight.');
+    // You can extend this function to redirect to the login page or show a modal for logging in
+}
+
 
 // Function to fetch flights based on search criteria
 async function fetchFlights() {

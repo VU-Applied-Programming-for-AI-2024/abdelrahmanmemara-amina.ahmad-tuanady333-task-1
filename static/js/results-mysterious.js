@@ -108,7 +108,6 @@ async function transformCity(city) {
         console.error(error)
     }
 }
-
 async function generateCard(result, cityId, cityTo, number) {
     // Function to generate flight card markup
     // input: result, the response of the flight api. cityId, the city you are traveling from. cityTo, the city you are traveling to. number, the number of the flight.
@@ -124,27 +123,36 @@ async function generateCard(result, cityId, cityTo, number) {
     const wind = weather['wind']['max']['speed'];
     const humidity = weather['humidity']['afternoon'];
     const percipitation = weather['precipitation']['total'];
-    const url = skyscannerLink(cityId, cityTo, param['dept_date'], param['return_date']);
+
+    // Book Now button markup with onclick event
     const markup = `<div class="row">
-            <div class="col-md-12">
-                <div class="flight-card">
-                    <h2 class="text-dark" id="firstairportList">${city_name}</h2>
-                    <div class="flight-info">
-                        <p id="firstAirport"><strong>Departure: </strong> ${airport} </p>
-                        <p id="firstDeperature"><strong>Departure time: </strong>${dept_time}</p>
-                        <p id="firstArrival"> <strong>Arrival time: </strong>${arrival_time}</p>
-                        <p id="firstPrice"><strong>Price: </strong> ${price}</p>
-                        <p><strong>Precipitation:</strong> ${percipitation} </p>
-                        <p><strong>Temperature at Arrival:</strong> ${temp}°F</p>
-                        <p><strong>Wind at Arrival:</strong> ${wind} mph</p>
-                        <p><strong>Humidity at Arrival:</strong> ${humidity}%</p>
-                    </div>
-                    <a href="${url}" class="btn btn-secondary">Book Now</a>
+        <div class="col-md-12">
+            <div class="flight-card">
+                <h2 class="text-dark" id="firstairportList">${city_name}</h2>
+                <div class="flight-info">
+                    <p id="firstAirport"><strong>Departure: </strong> ${airport} </p>
+                    <p id="firstDeperature"><strong>Departure time: </strong>${dept_time}</p>
+                    <p id="firstArrival"> <strong>Arrival time: </strong>${arrival_time}</p>
+                    <p id="firstPrice"><strong>Price: </strong> ${price}</p>
+                    <p><strong>Precipitation:</strong> ${percipitation} </p>
+                    <p><strong>Temperature at Arrival:</strong> ${temp}°F</p>
+                    <p><strong>Wind at Arrival:</strong> ${wind} mph</p>
+                    <p><strong>Humidity at Arrival:</strong> ${humidity}%</p>
                 </div>
-        </div>`;
-    
+                <a href="#" onclick="promptLogin();" class="btn btn-secondary">Book Now</a>
+            </div>
+        </div>
+    </div>`;
+
     html.insertAdjacentHTML('beforeend', markup);
 }
+
+// Function to prompt user to login
+function promptLogin() {
+    window.alert('Please log in to book the flight.');
+    // You can extend this function to redirect to the login page or show a modal for logging in
+}
+
 
 let cachedData = null;
 

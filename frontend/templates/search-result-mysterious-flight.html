@@ -84,14 +84,37 @@
             Loading flight search results...
         </div>
         <div class="flight-count" id="count">
-        </div>
-        <div class="flight-count" id="count">
-        </div>
+
     </div> 
+
+    <!-- Modal for Login Prompt -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel" style="color: black;">Login Required</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p style="color: black;">Please log in to book your flight.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Include the external JavaScript files -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/results-mysterious.js') }}"></script>
+    <script>
+        // Function to prompt user to login
+        function promptLogin() {
+            $('#loginModal').modal('show');
+        }
+    </script>
 </body>
 </html>
