@@ -180,26 +180,22 @@ async function fetchFlights() {
             if ((param['min_price'] === null || param['min_price'] === "" || price >= parsePrice(param['min_price'])) &&
                 (param['max_price'] === null || param['max_price'] === "" || price <= parsePrice(param['max_price']))) {
 
-                generateCard(result, cityId, cityTo, i);
             }
         }
         let counter = 0
         if (resultsLength > 0 && resultsLength < 11) {
-            document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${resultsLength}</p>`);
             for (let i = 0; i < resultsLength; i++) {
                 generateCard(result, cityId, cityTo, i);
                 counter += 1;
 
             }
         } else if (resultsLength > 10) {
-            document.getElementById('count').insertAdjacentHTML('beforeend', '<p><strong>Number of Flights Found:</strong> 10 </p>');
             for (let i = 0; i < 10; i++) {
                 generateCard(result, cityId, cityTo, i);
                 counter += 1;
 
             }
         } else if (resultsLength === 0) {
-            document.getElementById('count').insertAdjacentHTML('beforeend', '<p><strong>Number of Flights Found:</strong> 0 </p>');
             document.getElementById('main').insertAdjacentHTML('beforeend', `<div class="row">
             <div class="col-md-12">
                 <div class="flight-card">
@@ -212,7 +208,7 @@ async function fetchFlights() {
             plotPrices(flightPrices); // Plot the flight prices
         }
         // Display number of flights found
-        document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${flightCount}</p>`);
+        document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${counter}</p>`);
 
         // Display message if no results found
         if (flightCount === 0) {
