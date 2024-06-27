@@ -174,30 +174,28 @@ async function fetchFlights() {
         for (let i = 0; i < resultsLength; i++) {
             const priceStr = flightPrice(result, i);
             const price = parsePrice(priceStr);
+            allFlightPrices.push(price); // Add price to the array
 
             // Check if the price is within the specified range
             if ((param['min_price'] === null || param['min_price'] === "" || price >= parsePrice(param['min_price'])) &&
                 (param['max_price'] === null || param['max_price'] === "" || price <= parsePrice(param['max_price']))) {
-                allFlightPrices.push(price); // Add price to the array
 
                 generateCard(result, cityId, cityTo, i);
             }
         }
-
+        let counter = 0
         if (resultsLength > 0 && resultsLength < 11) {
             document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${resultsLength}</p>`);
             for (let i = 0; i < resultsLength; i++) {
                 generateCard(result, cityId, cityTo, i);
-            let flightPrices = allFlightPrices.slice(0, resultsLength);
-            plotPrices(flightPrices); // Plot the flight prices
+                counter += 1;
 
             }
         } else if (resultsLength > 10) {
             document.getElementById('count').insertAdjacentHTML('beforeend', '<p><strong>Number of Flights Found:</strong> 10 </p>');
             for (let i = 0; i < 10; i++) {
                 generateCard(result, cityId, cityTo, i);
-            let flightPrices = allFlightPrices.slice(0, 10);
-            plotPrices(flightPrices); // Plot the flight prices
+                counter += 1;
 
             }
         } else if (resultsLength === 0) {
@@ -208,6 +206,10 @@ async function fetchFlights() {
                 <p> No results found </p>
                 </div>
             </div>`);
+        }
+        if (counter > 0) {
+            let flightPrices = allFlightPrices.slice(0, counter);
+            plotPrices(flightPrices); // Plot the flight prices
         }
         // Display number of flights found
         document.getElementById('count').insertAdjacentHTML('beforeend', `<p><strong>Number of Flights Found:</strong> ${flightCount}</p>`);

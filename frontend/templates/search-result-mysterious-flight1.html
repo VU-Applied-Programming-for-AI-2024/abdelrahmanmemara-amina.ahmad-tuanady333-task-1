@@ -47,6 +47,8 @@
             width: 20px;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top text-center">
@@ -83,7 +85,8 @@
         </div>
         <div class="flight-count" id="count">
         </div>
-        <div class="flight-count" id="count">
+        <div class="chart-container mb-4" style="position: relative; height:40vh; width:80vw">
+            <canvas id="priceChart"></canvas>
         </div>
     </div> 
 
