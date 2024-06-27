@@ -185,7 +185,7 @@ async function fetchFlights() {
     // Function to fetch flights based on search criteria
     // return: does not return anything.
     try {
-        document.getElementById('loadingAlert').style.display = 'block'; // Show loading alert
+        showLoadingAlert(); // Show loading alert
         
         // Transform origin city name into cityId
         const cityId = await transformCity(param['origin']);
@@ -264,9 +264,11 @@ async function fetchFlights() {
             </div>`);
         }
 
-        document.getElementById('loadingAlert').style.display = 'none'; // Hide loading alert after results are loaded
+        hideLoadingAlert(); // Hide loading alert
     } catch (error) {
         console.error('Error fetching data:', error);
+        hideLoadingAlert(); // Hide loading alert
+
     }
 }
 

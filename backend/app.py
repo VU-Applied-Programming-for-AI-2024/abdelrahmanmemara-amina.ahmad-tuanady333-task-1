@@ -2,13 +2,14 @@ import os
 import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, session
+from typing import Dict
 
 app = Flask(__name__, 
             template_folder='../frontend/templates', 
             static_folder='../static')
 app.secret_key = 'supersecretkey'  # Needed for flash messages
 
-USER_DATA_FILE = os.path.join(os.path.dirname(__file__), 'users.json')
+USER_DATA_FILE : str = os.path.join(os.path.dirname(__file__), 'users.json')
 
 def load_users():
     """
@@ -28,7 +29,7 @@ def save_users(users):
     with open(USER_DATA_FILE, 'w') as file:
         json.dump(users, file, indent=4)
 
-users = load_users()
+users : Dict[str, Dict[str, str]] = load_users()
 
 def is_valid_password(password):
     """
@@ -236,6 +237,16 @@ def profile():
 
 @app.route('/update_email', methods=['POST'])
 def update_email():
+    """
+    Update the email address of the currently logged-in user.
+
+    Retrieves the current email and new email from the form, updates the user's email in the user data, 
+    saves the updated user data, and updates the session with the new email. 
+    If the current email is not found, flashes an error message.
+
+    Returns:
+        Response: Redirects to the profile page.
+    """
     current_email = request.form['current-email']
     new_email = request.form['new-email']
     if current_email in users:
@@ -249,6 +260,16 @@ def update_email():
 
 @app.route('/delete_account', methods=['POST'])
 def delete_account():
+    """
+    Delete the account of the currently logged-in user.
+
+    Retrieves the email and password from the form, verifies the credentials, and deletes the user account
+    from the user data. Saves the updated user data and removes the email from the session. 
+    If the credentials are invalid, flashes an error message.
+
+    Returns:
+        Response: Redirects to the index page.
+    """
     email = request.form['delete-email']
     password = request.form['delete-password']
     user = users.get(email)
@@ -263,6 +284,14 @@ def delete_account():
 
 @app.route('/logout')
 def logout():
+    """
+    Log out the currently logged-in user.
+
+    Removes the email from the session and flashes a success message.
+
+    Returns:
+        Response: Redirects to the index page.
+    """
     session.pop('email', None)
     flash('You have been logged out!', 'success')
     return redirect(url_for('index'))
