@@ -1,7 +1,7 @@
 import os
 import json
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, session
 
 app = Flask(__name__, 
             template_folder='../frontend/templates', 
@@ -69,7 +69,6 @@ def index1():
     """
     return render_template('index1.html')
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -83,8 +82,9 @@ def login():
         password = request.form['login-password']
         user = users.get(email)
         if user and check_password_hash(user['password'], password):
+            session['email'] = email
             flash("Login successful!", 'success')
-            return redirect(url_for('profile', email=email))
+            return redirect(url_for('profile'))
         else:
             flash('Invalid credentials', 'danger')
     return render_template('login.html')
@@ -220,22 +220,19 @@ def search_result_normal_flight1():
     """
     return render_template('search-result-normal-flight1.html')
 
-
 @app.route('/profile')
 def profile():
     """
     Render the profile.html template with the user's information.
     Returns: Rendered profile page.
     """
-    email = request.args.get('email')
+    email = session.get('email')
     user = users.get(email)
     if user:
         return render_template('profile.html', user=user)
     else:
         flash('User not found!', 'danger')
         return redirect(url_for('index'))
-
-
 
 @app.route('/update_email', methods=['POST'])
 def update_email():
@@ -244,6 +241,7 @@ def update_email():
     if current_email in users:
         users[new_email] = users.pop(current_email)
         save_users(users)
+        session['email'] = new_email
         flash('Email updated successfully!', 'success')
     else:
         flash('Current email not found!', 'danger')
@@ -256,12 +254,18 @@ def delete_account():
     user = users.get(email)
     if user and check_password_hash(user['password'], password):
         users.pop(email)
+        save_users(users)
         flash('Account deleted successfully!', 'danger')
+        session.pop('email', None)
     else:
         flash('Invalid email or password!', 'danger')
-        return redirect(url_for('profile'))
     return redirect(url_for('index'))
 
+@app.route('/logout')
+def logout():
+    session.pop('email', None)
+    flash('You have been logged out!', 'success')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)

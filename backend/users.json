@@ -43,5 +43,10 @@
         "firstname": "Amina",
         "lastname": "Ahmad",
         "password": "scrypt:32768:8:1$CfikpBgcGUE93Vdu$0405a96555b9184e76d6ae0e149665506a6a451991d91576226dacf2b961c7a9516f98e3f6583390d15fdb1e86071dc961cab37f57bc6dde855b6d37444e0b89"
+    },
+    "123@hotmail.com": {
+        "firstname": "Amina",
+        "lastname": "Ahmad",
+        "password": "scrypt:32768:8:1$8RS5dojXzsXnCSHW$aef95631cb151f26f8a53b6ffde5d04080149fbb167af8d89d082bd427db0849c7660be97b112d8dddd221a00313615300db5de5dd912b76508e9ba0e428273b"
     }
 }
