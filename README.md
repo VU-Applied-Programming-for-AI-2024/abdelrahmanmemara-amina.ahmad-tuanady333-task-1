@@ -11,18 +11,20 @@ Tuana Durmayüksel
 
 Amina Ahmad
 ## Installation details
-Prerequisites:
 
-Ensure you have all dependencies installed. These are listed in a file named requirements.txt. You can install them using pip install -r requirements.txt.
+Ensure you have all dependencies installed. These are listed in a file named requirements.txt. You can install them by running `pip install -r requirements.txt`.
 
-Starting the servers:
+## Starting the servers:
 
-Open a terminal window, navigate to the back-end server directory using cd and run python app.py to start the Flask server.
+1. Open a terminal window (e.g., Command Prompt, PowerShell).
 
-Accessing the servers:
+2. Navigate to the back-end server directory using cd followed by the path (e.g., `cd backend`).
 
-Once the servers are running, you should be able to access them using the provided port numbers.
+3. In the terminal, run `python app.py` to start the Flask server.
 
+## Accessing the servers:
+
+Once the server is running, you should be able to access it using the provided port numbers. Simply hold the Ctrl key and click on the URL provided in the terminal output ( `http://127.0.0.1:5000`).
 ## Usage Limits and API Keys
 ### Skyscanner API
 The Skyscanner API used in this project has specific usage limits, typically in terms of requests per month. If you encounter errors related to API limits, it means you've exceeded the allowed number of requests for the current period.
